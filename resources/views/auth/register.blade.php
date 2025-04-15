@@ -74,7 +74,6 @@
     </style>
 </head>
 <body>
-
     <div class="card">
         <div class="logo">
             <img src="/images/smartani_logo2.png" alt="SmartTani">
