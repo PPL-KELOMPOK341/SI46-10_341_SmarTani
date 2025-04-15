@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         body {
-            background: url('{{ asset('images/back.jpg') }}') no-repeat center center fixed;
+
+            background: url('{{ asset('images/back.png') }}') no-repeat center center fixed;
+>>>>>>> 9534544 (Membuat Register)
             background-size: cover;
             font-family: 'Poppins', sans-serif;
         }
