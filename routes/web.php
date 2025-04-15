@@ -26,5 +26,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/form-pendapatan', [PendapatanController::class, 'create'])->name('pendapatan.create');
 Route::post('/form-pendapatan', [PendapatanController::class, 'store'])->name('pendapatan.store');
+Route::post('/pendapatan/store', [PendapatanController::class, 'store'])->name('pendapatan.store');
 
 
