@@ -26,6 +26,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/form-penanaman', [PenanamanController::class, 'create'])->name('penanaman.create');
 Route::post('/form-penanaman', [PenanamanController::class, 'store'])->name('penanaman.store');
 Route::get('/penanaman', [PenanamanController::class, 'index'])->name('penanaman.index');
+Route::get('/penanaman/{id}', [PenanamanController::class, 'show'])->name('penanaman.show');
 
 
 // Form Pendapatan

@@ -13,7 +13,7 @@ class PenanamanController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validated([
+        $validated = $request->validate([
             'nama_tanaman' => 'required|string|max:255',
             'lokasi_lahan' => 'required|string|max:255',
             'luas_lahan' => 'required|numeric',
@@ -27,7 +27,9 @@ class PenanamanController extends Controller
             'catatan' => 'nullable|string',
         ]);
 
-        return redirect()->back()->with('success', 'Data penanaman berhasil disimpan!');
+        $penanaman = \App\Models\Penanaman::create($validated);
+
+        return redirect()->route('penanaman.show', $penanaman->id);
     }
 
     public function index(Request $request)
@@ -54,6 +56,13 @@ class PenanamanController extends Controller
 
         $penanaman = $query->latest()->get();
 
-        return view('penanaman.index', compact('penanaman'));
+        return view('penanaman.riwayat', compact('penanaman'));
+    }
+
+    public function show($id)
+    {
+        $penanaman = \App\Models\Penanaman::findOrFail($id);
+
+        return view('penanaman.hasil-form', compact('penanaman'));
     }
 }
