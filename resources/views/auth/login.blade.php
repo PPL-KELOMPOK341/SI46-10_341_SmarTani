@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         body {
-            background: url('{{ asset('images/back.jpg') }}') no-repeat center center fixed;
+            background: url('{{ asset('images/back.png') }}') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Poppins', sans-serif;
         }

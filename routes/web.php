@@ -23,3 +23,6 @@ Route::post('/login', [AuthController::class, 'login']);
 //Route::get('/riwayat-pengeluaran/{id}', [RiwayatPengeluaranController::class, 'show'])->name('riwayat.show');
 
 Route::get('/dashboard', [BeritaController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::get('/riwayat-panen', function () {
+    return view('riwayat-panen');
+});
