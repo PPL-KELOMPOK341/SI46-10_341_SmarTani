@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h3 class="fw-bold mb-4">Tabel Riwayat Pengeluaran</h3>
+    <h3 class="fw-bold mb-4">Riwayat Pengeluaran</h3>
 
     {{-- Filter dan Pencarian --}}
     <div class="d-flex justify-content-between mb-3">

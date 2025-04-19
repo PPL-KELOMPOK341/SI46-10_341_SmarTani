@@ -31,3 +31,6 @@ Route::get('/riwayat-pengeluaran/{id}', [RiwayatPengeluaranController::class, 's
 
 // Dashboard (Berita)
 Route::get('/dashboard', [BeritaController::class, 'index'])->middleware('auth')->name('dashboard');
+
+//Grafik Pengeluaran
+Route::get('/grafik-pengeluaran', [RiwayatPengeluaranController::class, 'grafikPengeluaran'])->name('grafik.pengeluaran');
