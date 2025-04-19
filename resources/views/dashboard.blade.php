@@ -7,7 +7,8 @@
         {{-- Search and Filter Section --}}
         <div class="row mb-4 justify-content-center">
             <div class="col-md-8">
-                <form method="GET" class="d-flex flex-wrap gap-3">
+            <form method="GET" class="d-flex flex-wrap gap-2 align-items-center justify-content-start">
+
                     <select name="sort" class="form-select" style="width: auto;">
                         <option value="">Urutkan</option>
                         <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
@@ -15,9 +16,14 @@
                     </select>
                     <input type="date" name="dari" value="{{ request('dari') }}" class="form-control" placeholder="Dari" style="width: auto;">
                     <input type="date" name="sampai" value="{{ request('sampai') }}" class="form-control" placeholder="Sampai" style="width: auto;">
-                    <div class="input-group" style="width: auto;">
-                        <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Apa yang Kamu Cari">
-                        <button type="submit" class="btn btn-outline-secondary">Cari</button>
+                    <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Apa yang Kamu Cari" style="width: auto;">
+
+                    <button type="submit" class="btn btn-outline-secondary d-flex align-items-center justify-content-center" style="width: 40px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 1.106a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+                        </svg>
+                    </button>
+
                         <a href="https://www.bmkg.go.id/" target="_blank" class="btn btn-primary ms-2 d-flex align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-sun me-1" viewBox="0 0 16 16">
                                 <path d="M7 8a3.5 3.5 0 0 1 3.5 3.555.5.5 0 0 0 .624.492A1.503 1.503 0 0 1 13 13.5a1.5 1.5 0 0 1-1.5 1.5H3a2 2 0 1 1 .1-3.998.5.5 0 0 0 .51-.375A3.502 3.502 0 0 1 7 8zm4.473 3a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 16h8.5a2.5 2.5 0 0 0 0-5h-.027z"/>
@@ -30,36 +36,75 @@
             </div>
         </div>
 
-        {{-- News Cards Section --}}
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                @forelse ($beritas as $berita)
-                    <div class="card mb-3 border-0 shadow-sm">
-                        <div class="card-body">
-                            <h3 class="card-title">{{ $berita->judul }}</h3>
-                            <div class="d-flex gap-3 text-muted mb-2">
-                                <span>{{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('d F Y') }}</span>
-                                @if($berita->created_at != $berita->updated_at)
-                                    <span>{{ \Carbon\Carbon::parse($berita->updated_at)->translatedFormat('d F Y') }}</span>
-                                @endif
-                            </div>
-                            @if($berita->gambar)
-                                <img src="{{ asset('storage/' . $berita->gambar) }}" class="img-fluid mb-3" alt="Gambar Berita">
-                            @endif
-                            <p class="card-text">{{ Str::limit($berita->isi, 200) }}</p>
-                        </div>
-                    </div>
-                @empty
-                    <div class="alert alert-info text-center">
-                        Tidak ada berita ditemukan.
-                    </div>
-                @endforelse
-            </div>
-        </div>
+        {{-- Static News Cards Section --}}
+        @php
+            $beritas = [
+                [
+                    'judul' => 'Harga Cabai Meningkat di Bandung',
+                    'tanggal' => '2024-06-03',
+                    'isi' => 'Harga cabai mengalami kenaikan yang signifikan di daerah Bandung...',
+                    'gambar' => 'path/to/image1.jpg',
+                    'slug' => 'harga-cabai-meningkat-di-bandung'
+                ],
+                [
+                    'judul' => 'Cabe lagi mahal',
+                    'tanggal' => '2024-06-01',
+                    'isi' => 'Kenaikan harga cabe berlanjut...',
+                    'gambar' => 'path/to/image2.jpg',
+                    'slug' => 'cabe-lagi-mahal'
+                ],
+                [
+                    'judul' => 'Panen Raya Membuat Harga Sayur Turun',
+                    'tanggal' => '2024-05-25',
+                    'isi' => 'Karena panen raya, harga sayuran menurun drastis...',
+                    'gambar' => 'path/to/image3.jpg',
+                    'slug' => 'panen-raya-sayur'
+                ]
+            ];
 
-        {{-- Pagination --}}
-        <div class="d-flex justify-content-center mt-4">
-            {{ $beritas->withQueryString()->links() }}
+            // Filter: tanggal
+            if (request('dari')) {
+                $beritas = array_filter($beritas, fn($b) => $b['tanggal'] >= request('dari'));
+            }
+            if (request('sampai')) {
+                $beritas = array_filter($beritas, fn($b) => $b['tanggal'] <= request('sampai'));
+            }
+
+            // Filter: search keyword
+            if (request('search')) {
+                $beritas = array_filter($beritas, fn($b) =>
+                    stripos($b['judul'], request('search')) !== false
+                );
+            }
+
+            // Sort: latest or oldest
+            if (request('sort') === 'latest') {
+                usort($beritas, fn($a, $b) => strcmp($b['tanggal'], $a['tanggal']));
+            } elseif (request('sort') === 'oldest') {
+                usort($beritas, fn($a, $b) => strcmp($a['tanggal'], $b['tanggal']));
+            }
+        @endphp
+
+        <div class="row justify-content-center">
+    @forelse ($beritas as $berita)
+        <div class="col-md-4 mb-4 d-flex">
+            <a href="{{ url('/berita/' . $berita['slug']) }}" class="text-decoration-none text-dark w-100">
+                <div class="card border-0 shadow-sm h-100">
+                    @if(!empty($berita['gambar']))
+                        <img src="{{ asset('storage/' . $berita['gambar']) }}" class="card-img-top" alt="Gambar Berita" style="object-fit: cover; height: 200px;">
+                    @endif
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $berita['judul'] }}</h5>
+                        <p class="text-muted">{{ \Carbon\Carbon::parse($berita['tanggal'])->translatedFormat('d F Y') }}</p>
+                        <p class="card-text">{{ \Illuminate\Support\Str::limit($berita['isi'], 200) }}</p>
+                    </div>
+                </div>
+            </a>
         </div>
+    @empty
+        <p class="text-center">Tidak ada berita ditemukan.</p>
+    @endforelse
+</div>
+
     </div>
 @endsection
