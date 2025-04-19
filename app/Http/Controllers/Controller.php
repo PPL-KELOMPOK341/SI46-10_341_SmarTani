@@ -15,6 +15,6 @@ abstract class Controller extends BaseController
     public function __construct()
     {
         // Menambahkan middleware global jika diperlukan
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 }
