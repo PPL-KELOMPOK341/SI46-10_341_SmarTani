@@ -20,10 +20,10 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Form Pendapatan
-Route::get('/form-pendapatan', [PendapatanController::class, 'create'])->name('pendapatan.create');
-Route::post('/form-pendapatan', [PendapatanController::class, 'store'])->name('pendapatan.store');
-Route::post('/pendapatan/store', [PendapatanController::class, 'store'])->name('pendapatan.store');
+// Form Pendapatan dengan middleware auth
+Route::get('/form-pendapatan', [PendapatanController::class, 'create'])->middleware('auth')->name('pendapatan.create');
+Route::post('/form-pendapatan', [PendapatanController::class, 'store'])->middleware('auth')->name('pendapatan.store');
+
 
 // Riwayat Pengeluaran
 Route::get('/riwayat-pengeluaran', [RiwayatPengeluaranController::class, 'index'])->name('riwayat.index');
