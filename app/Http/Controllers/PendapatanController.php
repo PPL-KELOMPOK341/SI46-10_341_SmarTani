@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -6,6 +7,12 @@ use App\Models\Pendapatan;
 
 class PendapatanController extends Controller
 {
+    // Menambahkan middleware auth pada konstruktor
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create()
     {
         return view('form-pendapatan');
