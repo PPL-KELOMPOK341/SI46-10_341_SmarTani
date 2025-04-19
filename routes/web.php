@@ -25,8 +25,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Form Penanaman
 Route::get('/form-penanaman', [PenanamanController::class, 'create'])->name('penanaman.create');
 Route::post('/form-penanaman', [PenanamanController::class, 'store'])->name('penanaman.store');
-Route::get('/penanaman', [PenanamanController::class, 'index'])->name('penanaman.index');
-Route::get('/penanaman/{id}', [PenanamanController::class, 'show'])->name('penanaman.show');
+Route::get('/riwayat-penanaman', [PenanamanController::class, 'index'])->name('penanaman.index');
+Route::get('/form-penanaman/hasil/{id}', [PenanamanController::class, 'hasilForm'])->name('penanaman.hasil-form');
+Route::get('/riwayat-penanaman/detail/{id}', [PenanamanController::class, 'lihatDetail'])->name('penanaman.lihat-detail');
+Route::get('/penanaman/{id}/edit', [PenanamanController::class, 'edit'])->name('penanaman.edit');
+Route::put('/penanaman/{id}', [PenanamanController::class, 'update'])->name('penanaman.update');
+Route::delete('/penanaman/{id}', [PenanamanController::class, 'destroy'])->name('penanaman.destroy');
 
 
 // Form Pendapatan

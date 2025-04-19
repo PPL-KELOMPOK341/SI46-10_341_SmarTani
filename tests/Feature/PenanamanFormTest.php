@@ -13,7 +13,7 @@ class PenanamanFormTest extends TestCase
     /** @test */
     public function form_penanaman_menyimpan_data_dengan_benar()
     {
-        $response = $this->post('/penanaman', [
+        $response = $this->post('/form-penanaman', [
             'nama_tanaman' => 'Jahe',
             'lokasi_lahan' => 'Jl. Cimaung RT.001/RW.002',
             'luas_lahan' => 200,
@@ -37,7 +37,7 @@ class PenanamanFormTest extends TestCase
     /** @test */
     public function form_penanaman_validasi_field_required()
     {
-        $response = $this->post('/penanaman', []); // kirim kosong
+        $response = $this->post('/form-penanaman', []); // kirim kosong
 
         $response->assertSessionHasErrors([
             'nama_tanaman',

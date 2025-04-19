@@ -19,6 +19,10 @@
             <p><span class="detail-label">Tanggal Penanaman</span> <span class="float-end">{{ \Carbon\Carbon::parse($penanaman->tanggal_penanaman)->translatedFormat('d F Y') }}</span></p>
             <p><span class="detail-label">Jumlah Pupuk</span> <span class="float-end">{{ $penanaman->jumlah_pupuk }} kg</span></p>
             <p><span class="detail-label">Jumlah Bibit</span> <span class="float-end">{{ $penanaman->jumlah_bibit }} kg</span></p>
+            <p><span class="detail-label">Jenis Pestisida</span> <span class="float-end">{{ $penanaman->jenis_pestisida ?? 'Tidak Ada' }}</span></p>
+            <p><span class="detail-label">Jenis Pupuk</span> <span class="float-end">{{ $penanaman->jenis_pupuk ?? 'Tidak Ada' }}</span></p>
+            <p><span class="detail-label">Kendala</span> <span class="float-end">{{ $penanaman->kendala ?? 'Tidak Ada' }}</span></p>
+            <p><span class="detail-label">Catatan</span> <span class="float-end">{{ $penanaman->catatan ?? 'Tidak Ada' }}</span></p>
         </div>
     </div>
 

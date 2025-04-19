@@ -53,7 +53,7 @@
                     <td>{{ $item->jumlah_pupuk }} kg</td>
                     <td>{{ $item->jumlah_bibit }} kg</td>
                     <td>
-                        <a href="{{ route('penanaman.show', $item->id) }}" class="btn btn-success btn-sm">
+                        <a href="{{ route('penanaman.lihat-detail', $item->id) }}" class="btn btn-success btn-sm">
                             Lihat Detail
                         </a>
                     </td>

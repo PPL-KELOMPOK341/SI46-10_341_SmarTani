@@ -29,7 +29,8 @@ class PenanamanController extends Controller
 
         $penanaman = \App\Models\Penanaman::create($validated);
 
-        return redirect()->route('penanaman.show', $penanaman->id);
+        //return redirect()->route('penanaman.hasil-form', $penanaman->id);
+        return redirect()->route('penanaman.index')->with('success', 'Data berhasil disimpan');
     }
 
     public function index(Request $request)
@@ -59,10 +60,34 @@ class PenanamanController extends Controller
         return view('penanaman.riwayat', compact('penanaman'));
     }
 
-    public function show($id)
+    public function hasilForm($id)
     {
         $penanaman = \App\Models\Penanaman::findOrFail($id);
 
         return view('penanaman.hasil-form', compact('penanaman'));
     }
+
+    public function lihatDetail($id)
+    {
+        $penanaman = \App\Models\Penanaman::findOrFail($id);
+
+        return view('penanaman.lihat-detail', compact('penanaman'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $penanaman = \App\Models\Penanaman::findOrFail($id);
+
+        $penanaman->update($request->all());
+
+        return redirect()->route('penanaman.index')->with('success', 'Data berhasil diperbarui!');
+    }
+
+    public function edit($id)
+    {
+        $penanaman = \App\Models\Penanaman::findOrFail($id);
+
+        return view('penanaman.edit', compact('penanaman'));
+    }
+
 }

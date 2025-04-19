@@ -18,6 +18,10 @@ class Penanaman extends Model
         'periode',
         'tanggal_penanaman',
         'jumlah_pupuk',
-        'jumlah_bibit'
+        'jumlah_bibit',
+        'jenis_pestisida',
+        'jenis_pupuk',
+        'kendala',
+        'catatan'
     ];
 }
