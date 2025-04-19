@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendapatanController;
 use App\Http\Controllers\RiwayatPengeluaranController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\HasilPanenController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,3 +32,11 @@ Route::get('/riwayat-pengeluaran/{id}', [RiwayatPengeluaranController::class, 's
 
 // Dashboard (Berita)
 Route::get('/dashboard', [BeritaController::class, 'index'])->middleware('auth')->name('dashboard');
+
+// Route::get('/form-hasil-panen', function () {
+//     return view('form-hasil-panen');
+// });
+
+// Hasil Panen
+Route::get('/hasil-panen', [HasilPanenController::class, 'create']);
+Route::post('/hasil-panen/store', [HasilPanenController::class, 'store']);
