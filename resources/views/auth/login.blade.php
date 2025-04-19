@@ -9,7 +9,6 @@
         body {
 
             background: url('{{ asset('images/back.png') }}') no-repeat center center fixed;
->>>>>>> 9534544 (Membuat Register)
             background-size: cover;
             font-family: 'Poppins', sans-serif;
         }

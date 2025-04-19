@@ -74,8 +74,6 @@
     </style>
 </head>
 <body>
-
->>>>>>> 9534544 (Membuat Register)
     <div class="card">
         <div class="logo">
             <img src="/images/smartani_logo2.png" alt="SmartTani">

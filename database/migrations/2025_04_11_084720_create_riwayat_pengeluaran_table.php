@@ -22,6 +22,8 @@ return new class extends Migration
             $table->bigInteger('upah_panen');
             $table->integer('jumlah_pupuk');
             $table->integer('jumlah_bibit');
+            $table->string('keterangan');
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }
