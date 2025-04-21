@@ -77,8 +77,8 @@
     {{-- Font Awesome for Icons --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-
+<body class="d-flex flex-column min-vh-100">  {{-- Menambahkan d-flex dan min-vh-100 di body --}}
+    
     <header class="header">
         <div class="menu-icon">
             <i class="fas fa-bars"></i>
@@ -89,7 +89,7 @@
         </div>
     </header>
 
-    <main class="container my-5">
+    <main class="flex-fill" style="min-height: calc(100vh - 200px);">  {{-- Sesuaikan 200px dengan tinggi header+footer --}}
         @yield('content')
     </main>
 

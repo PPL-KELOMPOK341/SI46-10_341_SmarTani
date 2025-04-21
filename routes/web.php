@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendapatanController;
 use App\Http\Controllers\RiwayatPengeluaranController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\RiwayatPendapatanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,3 +35,6 @@ Route::get('/dashboard', [BeritaController::class, 'index'])->middleware('auth')
 
 //Grafik Pengeluaran
 Route::get('/grafik-pengeluaran', [RiwayatPengeluaranController::class, 'grafikPengeluaran'])->name('grafik.pengeluaran');
+
+//Riwayat Pendapatan
+Route::get('/riwayat-pendapatan', [RiwayatPendapatanController::class, 'index'])->name('riwayat.pendapatan');
