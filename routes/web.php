@@ -26,3 +26,17 @@ Route::get('/dashboard', [BeritaController::class, 'index'])->middleware('auth')
 Route::get('/riwayat-panen', function () {
     return view('riwayat-panen');
 });
+Route::get('/riwayat-panen/{id}', function ($id) {
+    // Contoh data dummy (ganti nanti dengan dari DB)
+    $data = [
+        'nama_tanaman' => 'Jahe',
+        'periode' => 'Periode I',
+        'tanggal_penanaman' => '15 Maret 2025',
+        'lokasi' => 'Jl. Cimaung RT.001/RW.002',
+        'harga_jual' => 'Rp 2.500',
+        'tanggal_panen' => '14 Juli 2025',
+        'jumlah' => '200 kg',
+        'kualitas' => 'Bagus',
+    ];
+    return view('panen.show', compact('data'));
+});

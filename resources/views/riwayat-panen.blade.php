@@ -22,6 +22,7 @@
                 <input type="text" id="tanggalPicker" placeholder="Tanggal Panen">
                 <button><i class="fas fa-search"></i></button>
             </div>
+
             <table class="data-table">
                 <thead>
                     <tr>
@@ -42,7 +43,7 @@
                         <td>14 Juli 2025</td>
                         <td>200 kg</td>
                         <td>Bagus</td>
-                        <td><button class="detail-btn">Lihat Detail</button></td>
+                        <td><a href="{{ url('/riwayat-panen/1') }}" class="detail-btn">Lihat Detail</a></td>
                     </tr>
                     <tr>
                         <td>Jahe</td>
@@ -51,7 +52,7 @@
                         <td>14 Desember 2025</td>
                         <td>50 kg</td>
                         <td>Kurang Bagus</td>
-                        <td><button class="detail-btn">Lihat Detail</button></td>
+                        <td><a href="{{ url('/riwayat-panen/2') }}" class="detail-btn">Lihat Detail</a></td>
                     </tr>
                     <tr>
                         <td>Jahe</td>
@@ -60,7 +61,7 @@
                         <td>14 April 2026</td>
                         <td>350 kg</td>
                         <td>Sangat Bagus</td>
-                        <td><button class="detail-btn">Lihat Detail</button></td>
+                        <td><a href="{{ url('/riwayat-panen/3') }}" class="detail-btn">Lihat Detail</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -76,5 +77,22 @@
             allowInput: true,
         });
     </script>
+
+    <style>
+        .detail-btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .detail-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+
 </body>
 </html>
