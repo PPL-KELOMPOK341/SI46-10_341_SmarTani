@@ -42,3 +42,37 @@ Route::get('/grafik-pemasukan-pengeluaran', [GrafikController::class, 'index'])-
 
 //Riwayat Pendapatan
 Route::get('/riwayat-pendapatan', [RiwayatPendapatanController::class, 'index'])->name('riwayat.pendapatan');
+
+use App\Http\Controllers\PengeluaranController;
+
+// Rute untuk menampilkan form pengeluaran khusus (kalau ingin custom form)
+Route::get('/pengeluaran/form', [PengeluaranController::class, 'create'])->name('pengeluaran.create');
+
+// Rute utama CRUD untuk pengeluaran
+Route::resource('/pengeluaran', PengeluaranController::class);
+
+
+
+
+Route::get('/pengeluaran/form', function () {
+    return view('pengeluaran.form');
+});
+// use App\Http\Controllers\PengeluaranController;
+
+// Route::get('pengeluaran/form', [PengeluaranController::class, 'create']);
+Route::resource('pengeluaran', PengeluaranController::class);
+// Route::post('/pengeluaran/store', [PengeluaranController::class, 'store'])->name('pengeluaran.store');
+
+
+
+// Rute untuk menampilkan form pengeluaran
+Route::get('/pengeluaran/form', [PengeluaranController::class, 'create'])->name('pengeluaran.create');
+
+// Rute untuk menyimpan data pengeluaran
+Route::post('/pengeluaran/store', [PengeluaranController::class, 'store'])->name('pengeluaran.store');
+
+// Rute untuk melihat daftar pengeluaran
+Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran.index');
+
+// Rute untuk melihat detail pengeluaran berdasarkan ID
+Route::get('/pengeluaran/{id}', [PengeluaranController::class, 'show'])->name('pengeluaran.show');
