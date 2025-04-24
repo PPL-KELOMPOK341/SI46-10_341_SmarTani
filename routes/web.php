@@ -38,3 +38,6 @@ Route::get('/grafik-pengeluaran', [RiwayatPengeluaranController::class, 'grafikP
 
 //Riwayat Pendapatan
 Route::get('/riwayat-pendapatan', [RiwayatPendapatanController::class, 'index'])->name('riwayat.pendapatan');
+
+// Detail Pendapatan
+Route::get('/riwayat-pendapatan/{id}', [RiwayatPendapatanController::class, 'show'])->name('riwayat.pendapatan.detail');
