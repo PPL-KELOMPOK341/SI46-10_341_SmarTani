@@ -24,10 +24,10 @@ class AuthController extends Controller
             return redirect()->intended('/dashboard');
         }
 
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ])->onlyInput('email');
+        // Menyimpan pesan kesalahan ke session
+        return redirect()->back()->with('error', 'Password Anda salah, masukkan yang benar.');
     }
+
     public function logout(Request $request)
     {
         Auth::logout();
