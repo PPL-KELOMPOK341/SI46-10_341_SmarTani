@@ -43,6 +43,8 @@ Route::get('/grafik-pemasukan-pengeluaran', [GrafikController::class, 'index'])-
 //Riwayat Pendapatan
 Route::get('/riwayat-pendapatan', [RiwayatPendapatanController::class, 'index'])->name('riwayat.pendapatan');
 
+// Detail Pendapatan
+Route::get('/riwayat-pendapatan/{id}', [RiwayatPendapatanController::class, 'show'])->name('riwayat.pendapatan.detail');
 use App\Http\Controllers\PengeluaranController;
 
 // Rute untuk menampilkan form pengeluaran khusus (kalau ingin custom form)

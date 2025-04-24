@@ -18,7 +18,7 @@ class RiwayatPengeluaranFactory extends Factory
     {
         return [
             'nama_tanaman' => $this->faker->word(),
-            'periode' => $this->faker->regexify('[0-9]{4}-0[1-9]'), // atau bisa juga month-year
+            'periode' => $this->faker->regexify('[0-9]{4}-0[1-9]'),
             'tanggal_penanaman' => $this->faker->date(),
             'tanggal_pengeluaran' => $this->faker->date(),
             'biaya_bibit' => $this->faker->numberBetween(10000, 50000),
