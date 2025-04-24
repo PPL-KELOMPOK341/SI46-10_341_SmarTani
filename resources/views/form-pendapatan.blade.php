@@ -28,7 +28,6 @@
                     <input type="date" name="tanggal_penanaman" class="form-control">
                 </div>
             </div>
-            <button type="button" class="btn btn-outline-warning mt-3">Cari Data</button>
         </div>
 
         <!-- Biaya Pendapatan -->

@@ -1,14 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<h4 class="mb-4">Tabel Riwayat Pendapatan</h4>
+<h4 class="mb-4 text-center">Tabel Riwayat Pendapatan</h4>
 
-<div class="mb-3 d-flex gap-2">
-    <button class="btn btn-outline-secondary">Urutkan</button>
-    <button class="btn btn-outline-secondary">N. Tanaman</button>
-    <button class="btn btn-outline-secondary">Periode</button>
-    <form class="d-flex ms-auto" role="search" method="GET" action="{{ route('riwayat.pendapatan') }}">
-        <input class="form-control me-2" type="search" placeholder="Apa yang Kamu Cari" aria-label="Search" name="search">
+<div class="mb-4 d-flex flex-column align-items-center gap-3">
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+        @php
+            $toggleOrder = fn($current) => $current == 'asc' ? 'desc' : 'asc';
+        @endphp
+
+        <a href="{{ route('riwayat.pendapatan', ['sort_by' => 'tanggal', 'order' => $currentSort === 'tanggal' ? $toggleOrder($currentOrder) : 'asc', 'search' => request('search')]) }}" class="btn btn-outline-primary">
+            Tanggal
+            @if($currentSort === 'tanggal')
+                <i class="fas fa-sort-{{ $currentOrder === 'asc' ? 'up' : 'down' }}"></i>
+            @endif
+        </a>
+
+        <a href="{{ route('riwayat.pendapatan', ['sort_by' => 'total', 'order' => $currentSort === 'total' ? $toggleOrder($currentOrder) : 'asc', 'search' => request('search')]) }}" class="btn btn-outline-primary">
+            Total Hasil
+            @if($currentSort === 'total')
+                <i class="fas fa-sort-{{ $currentOrder === 'asc' ? 'up' : 'down' }}"></i>
+            @endif
+        </a>
+
+        <a href="{{ route('riwayat.pendapatan', ['sort_by' => 'sumber', 'order' => $currentSort === 'sumber' ? $toggleOrder($currentOrder) : 'asc', 'search' => request('search')]) }}" class="btn btn-outline-primary">
+            Sumber Pendapatan
+            @if($currentSort === 'sumber')
+                <i class="fas fa-sort-{{ $currentOrder === 'asc' ? 'up' : 'down' }}"></i>
+            @endif
+        </a>
+    </div>
+
+    <form class="d-flex justify-content-center w-100" role="search" method="GET" action="{{ route('riwayat.pendapatan') }}">
+        <input class="form-control me-2 w-50" type="search" placeholder="Cari berdasarkan tanggal atau sumber pendapatan..." name="search" value="{{ request('search') }}">
+        <input type="hidden" name="sort_by" value="{{ $currentSort }}">
+        <input type="hidden" name="order" value="{{ $currentOrder }}">
         <button class="btn btn-success" type="submit"><i class="fas fa-search"></i></button>
     </form>
 </div>
@@ -31,7 +57,7 @@
                         <td class="px-3">{{ \Carbon\Carbon::parse($item->tanggal_pemasukan)->translatedFormat('d F Y') }}</td>
                         <td class="px-3">Rp {{ number_format($item->total_hasil_pendapatan, 0, ',', '.') }}</td>
                         <td class="px-3">{{ $item->sumber_pendapatan }}</td>
-                        <td class="px-3"><a href="#" class="btn btn-success btn-sm">Lihat Detail</a></td>
+                        <td class="px-3"><a href="{{ route('riwayat.pendapatan.detail', $item->id) }}" class="btn btn-success btn-sm">Lihat Detail</a></td>
                     </tr>
                     @empty
                     <tr>
@@ -43,5 +69,4 @@
         </div>
     </div>
 </div>
-
 @endsection
