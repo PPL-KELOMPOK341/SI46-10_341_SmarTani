@@ -76,3 +76,5 @@ Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('penge
 
 // Rute untuk melihat detail pengeluaran berdasarkan ID
 Route::get('/pengeluaran/{id}', [PengeluaranController::class, 'show'])->name('pengeluaran.show');
+
+//akhir root
