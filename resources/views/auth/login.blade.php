@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         body {
-
             background: url('{{ asset('images/back.png') }}') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Poppins', sans-serif;
@@ -52,6 +51,14 @@
             margin-top: 15px;
             font-size: 14px;
         }
+        .alert {
+            background-color: #ffe0e0;
+            color: #d8000c;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -59,9 +66,25 @@
         <img src="{{ asset('images/smartani_logo2.png') }}" alt="SmarTani Logo">
         <p>Silahkan masukkan email dan password</p>
 
+        {{-- Alert jika login gagal --}}
+        @if (session('error'))
+            <div class="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        {{-- Tampilkan error validasi khusus email/password --}}
+        @if ($errors->any())
+            <div class="alert">
+                @foreach ($errors->all() as $error)
+                    {{ $error }}<br>
+                @endforeach
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <input type="email" name="email" placeholder="Email" required>
+            <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
             <input type="password" name="password" placeholder="Password" required>
 
             <button type="submit">Masuk</button>
