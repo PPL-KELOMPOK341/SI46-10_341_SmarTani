@@ -30,6 +30,7 @@ Route::post('/form-pendapatan', [PendapatanController::class, 'store'])->middlew
 // Riwayat Pengeluaran
 Route::get('/riwayat-pengeluaran', [RiwayatPengeluaranController::class, 'index'])->name('riwayat.index');
 Route::get('/riwayat-pengeluaran/{id}', [RiwayatPengeluaranController::class, 'show'])->name('riwayat.show');
+Route::get('/riwayat-pengeluaran', [RiwayatPengeluaranController::class, 'index'])->name('riwayat.index');
 
 // Dashboard (Berita)
 Route::get('/dashboard', [BeritaController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -42,7 +43,11 @@ Route::get('/grafik-pemasukan-pengeluaran', [GrafikController::class, 'index'])-
 Route::get('/riwayat-pendapatan', [RiwayatPendapatanController::class, 'index'])->name('riwayat.pendapatan');
 Route::get('/riwayat-pendapatan/{id}', [RiwayatPendapatanController::class, 'show'])->name('riwayat.pendapatan.detail');
 
+
 // Pengeluaran
 Route::get('/pengeluaran/form', [PengeluaranController::class, 'create'])->name('pengeluaran.create');
 Route::post('/pengeluaran', [PengeluaranController::class, 'store'])->name('pengeluaran.store');
 Route::resource('pengeluaran', PengeluaranController::class)->except(['create', 'store']);
+Route::resource('pengeluaran', PengeluaranController::class);
+Route::get('/riwayat/{id}/edit', [RiwayatPengeluaranController::class, 'edit'])->name('riwayat.edit');
+Route::put('/riwayat/{id}', [RiwayatPengeluaranController::class, 'update'])->name('riwayat.update');

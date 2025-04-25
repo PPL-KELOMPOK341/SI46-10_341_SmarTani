@@ -7,22 +7,17 @@ use App\Models\Pengeluaran;
 
 class PengeluaranController extends Controller
 {
-    // public function index()
-    // {
-    //     $pengeluarans = Pengeluaran::all();
-    //     return view('pengeluaran.index', compact('pengeluarans'));
-    // }
-
     public function index()
     {
-        $pengeluaran = Pengeluaran::all(); // Ambil semua data pengeluaran
+        // View ini bisa kamu hapus kalau udah nggak dipakai lagi
+        $pengeluaran = Pengeluaran::all();
         return view('pengeluaran.index', compact('pengeluaran'));
-    }   
+    }
 
     public function show($id)
     {
         $pengeluaran = Pengeluaran::findOrFail($id);
-        return view('pengeluaran.show', compact('pengeluaran'));
+        return redirect()->route('riwayat.show', $pengeluaran->id);
     }
 
     public function create()
@@ -31,10 +26,18 @@ class PengeluaranController extends Controller
     }
 
     public function edit($id)
-{
+    {
+        $pengeluaran = Pengeluaran::findOrFail($id);
+        return view('pengeluaran.edit', compact('pengeluaran'));
+    }
+
+    public function destroy($id)
+    {
     $pengeluaran = Pengeluaran::findOrFail($id);
-    return view('pengeluaran.edit', compact('pengeluaran'));
-}
+    $pengeluaran->delete();
+
+    return redirect()->route('riwayat.index')->with('success', 'Data berhasil dihapus!');
+    }
 
     public function store(Request $request)
     {
@@ -55,8 +58,7 @@ class PengeluaranController extends Controller
 
         Pengeluaran::create($request->all());
 
-        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran berhasil disimpan.');
+        // Arahkan langsung ke riwayat pengeluaran (modern index)
+        return redirect()->route('riwayat.index')->with('success', 'Pengeluaran berhasil disimpan.');
     }
-
 }
-

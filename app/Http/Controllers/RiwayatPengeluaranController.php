@@ -3,37 +3,55 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\RiwayatPengeluaran;
-use Illuminate\Support\Facades\DB;
+use App\Models\Pengeluaran;
 
 class RiwayatPengeluaranController extends Controller
 {
     public function index()
     {
-        $data = RiwayatPengeluaran::all();
+        $data = Pengeluaran::all(); // disesuaikan dengan index.blade modern
         return view('riwayat_pengeluaran.index', compact('data'));
     }
 
     public function show($id)
     {
-        $detail = RiwayatPengeluaran::findOrFail($id);
+        $detail = Pengeluaran::findOrFail($id);
         return view('riwayat_pengeluaran.show', compact('detail'));
     }
 
-    public function grafikPengeluaran()
+    public function update(Request $request, $id)
     {
-        $pengeluaran = DB::table('riwayat_pengeluaran')
-            ->select(DB::raw('DATE(tanggal_pengeluaran) as tanggal'), DB::raw('SUM(jumlah) as total'))
-            ->groupBy('tanggal')
-            ->orderBy('tanggal')
-            ->get();
+    $request->validate([
+        'nama_tanaman' => 'required|string|max:255',
+        'periode' => 'required|string|max:255',
+        'tanggal_penanaman' => 'nullable|date',
+        'tanggal_pengeluaran' => 'nullable|date',
+        'total_biaya_bibit' => 'nullable|numeric',
+        'total_biaya_pupuk' => 'nullable|numeric',
+        'upah_panen' => 'nullable|numeric',
+        'jumlah_pupuk' => 'nullable|numeric',
+        'jumlah_bibit' => 'nullable|numeric',
+    ]);
 
-        $labels = $pengeluaran->pluck('tanggal');
-        $data = $pengeluaran->pluck('total');
-    
-        return view('riwayat_pengeluaran.grafik_pengeluaran', compact('labels', 'data'));
+    $pengeluaran = Pengeluaran::findOrFail($id);
+    $pengeluaran->update([
+        'nama_tanaman' => $request->nama_tanaman,
+        'periode' => $request->periode,
+        'tanggal_penanaman' => $request->tanggal_penanaman,
+        'tanggal_pengeluaran' => $request->tanggal_pengeluaran,
+        'total_biaya_bibit' => $request->total_biaya_bibit,
+        'total_biaya_pupuk' => $request->total_biaya_pupuk,
+        'upah_panen' => $request->upah_panen,
+        'jumlah_pupuk' => $request->jumlah_pupuk,
+        'jumlah_bibit' => $request->jumlah_bibit,
+    ]);
+
+    return redirect()->route('riwayat.index')->with('success', 'Data pengeluaran berhasil diperbarui.');
+    }
+
+    public function edit($id)
+    {
+    $detail = Pengeluaran::findOrFail($id);
+    return view('riwayat_pengeluaran.edit', compact('detail'));
     }
 }
-
-    
-

@@ -791,18 +791,13 @@
             </div>
 
             <div class="form-group">
-                <label for="tanggal_pengeluaran" class="required">Tanggal Pengeluaran</label>
-                <input type="date" id="tanggal_pengeluaran" name="tanggal_pengeluaran" required>
-            </div>
-
-            <div class="form-group">
                 <label for="catatan">Catatan (Optional)</label>
                 <textarea id="catatan" name="catatan"></textarea>
             </div>
 
             <div class="form-group">
                 <button type="submit" class="btn-blue">Simpan</button>
-                <button type="button" class="btn-red">Kembali</button>
+                <button type="button" class="btn-red" onclick="window.location.href='{{ route('pengeluaran.index') }}'">Kembali</button>
             </div>
 
         </form>
