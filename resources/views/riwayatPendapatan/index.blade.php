@@ -32,7 +32,7 @@
     </div>
 
     <form class="d-flex justify-content-center w-100" role="search" method="GET" action="{{ route('riwayat.pendapatan') }}">
-        <input class="form-control me-2 w-50" type="search" placeholder="Cari berdasarkan tanggal atau sumber pendapatan..." name="search" value="{{ request('search') }}">
+        <input class="form-control me-2 w-50" type="search" placeholder="Cari berdasarkan tanggal atau sumber pendapatan" name="search" value="{{ request('search') }}">
         <input type="hidden" name="sort_by" value="{{ $currentSort }}">
         <input type="hidden" name="order" value="{{ $currentOrder }}">
         <button class="btn btn-success" type="submit"><i class="fas fa-search"></i></button>

@@ -26,7 +26,7 @@
                     <td>{{ $pendapatan->nama_tanaman }}</td>
                 </tr>
                 <tr>
-                    <th>Periode</th>
+                    <th>Periode Penanaman</th>
                     <td>{{ $pendapatan->periode }}</td>
                 </tr>
                 <tr>
@@ -43,7 +43,7 @@
                 </tr>
                 <tr>
                     <th>Tanggal Pemasukan Lainnya</th>
-                    <td>{{ \Carbon\Carbon::parse($pendapatan->tanggal_pemasukan_lainnya)->translatedFormat('d F Y') ?? '-' }}</td>
+                    <td>{{ $pendapatan->tanggal_pemasukan_lainnya ? \Carbon\Carbon::parse($pendapatan->tanggal_pemasukan_lainnya)->translatedFormat('d F Y') : '-' }}</td>
                 </tr>
                 <tr>
                     <th>Catatan</th>
@@ -51,9 +51,17 @@
                 </tr>
             </table>
 
-            <a href="{{ route('riwayat.pendapatan') }}" class="btn btn-secondary">Kembali ke Riwayat Pendapatan</a>
+            <div class="d-flex gap-2 mt-3">
+                <a href="{{ route('riwayat.pendapatan') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('pendapatan.edit', $pendapatan->id) }}" class="btn btn-warning">Ubah</a>
+                <form action="{{ route('pendapatan.destroy', $pendapatan->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+                <button onclick="window.print()" class="btn btn-success">Print</button>
+            </div>
         </div>
     </div>
 </div>
-
 @endsection
