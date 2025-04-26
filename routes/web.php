@@ -41,6 +41,11 @@ Route::get('/grafik-pemasukan-pengeluaran', [GrafikController::class, 'index'])-
 // Riwayat Pendapatan
 Route::get('/riwayat-pendapatan', [RiwayatPendapatanController::class, 'index'])->name('riwayat.pendapatan');
 Route::get('/riwayat-pendapatan/{id}', [RiwayatPendapatanController::class, 'show'])->name('riwayat.pendapatan.detail');
+// Tambahan untuk edit, update, dan delete pendapatan
+Route::get('/pendapatan/{id}/edit', [PendapatanController::class, 'edit'])->name('pendapatan.edit');
+Route::put('/pendapatan/{id}', [PendapatanController::class, 'update'])->name('pendapatan.update');
+Route::delete('/pendapatan/{id}', [PendapatanController::class, 'destroy'])->name('pendapatan.destroy');
+
 
 // Pengeluaran
 Route::get('/pengeluaran/form', [PengeluaranController::class, 'create'])->name('pengeluaran.create');

@@ -12,11 +12,11 @@
             <h5 class="mb-3 fw-semibold text-success">Informasi Penanaman</h5>
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label class="form-label">Nama Tanaman *</label>
+                    <label class="form-label">Nama Tanaman <span class="text-danger">*</span></label>
                     <input type="text" name="nama_tanaman" class="form-control" placeholder="Masukkan nama tanaman" required>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Periode *</label>
+                    <label class="form-label">Periode <span class="text-danger">*</span></label>
                     <select name="periode" class="form-select" required>
                         <option value="">Pilih Periode Penanaman</option>
                         <option value="1">Periode 1</option>
@@ -24,8 +24,8 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Tanggal Penanaman</label>
-                    <input type="date" name="tanggal_penanaman" class="form-control">
+                    <label class="form-label">Tanggal Penanaman <span class="text-danger">*</span></label>
+                    <input type="date" name="tanggal_penanaman" class="form-control" required> 
                 </div>
             </div>
         </div>
@@ -35,15 +35,15 @@
             <h5 class="mb-3 fw-semibold text-success">Biaya Pendapatan</h5>
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label class="form-label">Sumber Pendapatan *</label>
+                    <label class="form-label">Sumber Pendapatan <span class="text-danger">*</span></label>
                     <input type="text" name="sumber_pendapatan" class="form-control" placeholder="Masukkan sumber pendapatan" required>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Tanggal Pemasukan *</label>
+                    <label class="form-label">Tanggal Pemasukan <span class="text-danger">*</span></label>
                     <input type="date" name="tanggal_pemasukan" class="form-control" required>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Total Hasil Pendapatan *</label>
+                    <label class="form-label">Total Hasil Pendapatan <span class="text-danger">*</span></label>
                     <input type="number" name="total_hasil_pendapatan" class="form-control" placeholder="Rp." required>
                 </div>
             </div>
