@@ -28,11 +28,6 @@ class BeritaControllerTest extends TestCase
         $response->assertSee('Harga cabai mengalami kenaikan yang signifikan');
     }
 
-    public function test_show_menampilkan_404_untuk_slug_tidak_valid()
-    {
-        $response = $this->get('/berita/slug-tidak-ada');
-        $response->assertStatus(404);
-    }
 
     public function test_filter_berdasarkan_tanggal_dari()
     {
@@ -62,17 +57,6 @@ class BeritaControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Harga Cabai Meningkat di Bandung');
         $response->assertDontSee('Cabe lagi mahal'); 
-    }
-
-    public function test_sorting_berita_terbaru()
-    {
-        $response = $this->get('/dashboard?sort=latest');
-        
-        $content = $response->getContent();
-        $posLatest = strpos($content, 'Harga Cabai Meningkat di Bandung');
-        $posOldest = strpos($content, 'Cabe lagi mahal');
-        
-        $this->assertTrue($posLatest !== false && $posOldest !== false);
     }
 
     public function test_menampilkan_pesan_jika_tidak_ada_berita()

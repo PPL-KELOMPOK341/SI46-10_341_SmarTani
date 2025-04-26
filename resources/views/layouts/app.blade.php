@@ -12,6 +12,7 @@
         body {
             margin: 0;
             padding: 0;
+            transition: margin-left 0.3s;
         }
         .header {
             background-color: #3CB043;
@@ -72,6 +73,50 @@
             max-width: 100%;
             height: auto;
         }
+
+        /* Sidebar Styles */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            background-color:rgb(131, 144, 136);
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 16px;
+            color: white;
+            display: block;
+            transition: 0.2s;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar a:hover {
+            background-color: #2E8B36;
+        }
+
+        .sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+        }
+
+        .main-content {
+            transition: margin-left 0.3s;
+        }
+
+        .sidebar-open {
+            margin-left: 250px;
+        }
     </style>
 
     {{-- Font Awesome for Icons --}}
@@ -79,8 +124,22 @@
 </head>
 <body>
 
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">&times;</a>
+        <a href="{{ route('dashboard') }}"><i class="fas fa-home me-2"></i> Beranda</a>
+        <a href="{{ route('penanaman.create') }}"><i class="fas fa-file-alt me-2"></i> Form Pencatatan</a>
+        <a href="#"><i class="fas fa-seedling me-2"></i> Riwayat Penanaman</a>
+        <a href="#"><i class="fas fa-wheat-alt me-2"></i> Riwayat Hasil Panen</a>
+        <a href="#"><i class="fas fa-money-bill-wave me-2"></i> Riwayat Pendapatan</a>
+        <a href="#"><i class="fas fa-receipt me-2"></i> Riwayat Pengeluaran</a>
+        <a href="#"><i class="fas fa-chart-line me-2"></i> Grafik</a>
+        <a href="#"><i class="fas fa-comment-alt me-2"></i> Form Pengaduan</a>
+        <a href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+    </div>
+
     <header class="header">
-        <div class="menu-icon">
+        <div class="menu-icon" onclick="openSidebar()">
             <i class="fas fa-bars"></i>
         </div>
         <div class="profile">
@@ -89,7 +148,7 @@
         </div>
     </header>
 
-    <main class="container my-5">
+    <main class="container my-5 main-content" id="main-content">
         @yield('content')
     </main>
 
@@ -136,5 +195,17 @@
 
     {{-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function openSidebar() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main-content").classList.add("sidebar-open");
+        }
+
+        function closeSidebar() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main-content").classList.remove("sidebar-open");
+        }
+    </script>
 </body>
 </html>
