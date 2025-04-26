@@ -39,7 +39,6 @@
             border: none;
             padding: 12px;
             border-radius: 10px;
-            font-weight: bold;
             margin-top: 10px;
             cursor: pointer;
         }
