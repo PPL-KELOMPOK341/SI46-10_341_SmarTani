@@ -3,26 +3,46 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Pendapatan;
+use App\Models\Pengeluaran;
 
 class GrafikController extends Controller
 {
-    public function index()
+    public function grafikKeuangan(Request $request)
     {
-        // Data pengeluaran
-        $pengeluaran = DB::table('riwayat_pengeluaran')
-            ->select(DB::raw('DATE(tanggal_pengeluaran) as tanggal'), DB::raw('SUM(jumlah) as total'))
-            ->groupBy('tanggal')
-            ->orderBy('tanggal')
-            ->get();
+    $tahun = $request->input('tahun');
 
-        // Data pemasukan
-        $pemasukan = DB::table('pendapatans')
-            ->select(DB::raw('DATE(tanggal_pemasukan) as tanggal'), DB::raw('SUM(total_hasil_pendapatan) as total'))
-            ->groupBy('tanggal')
-            ->orderBy('tanggal')
-            ->get();
+    $pemasukanQuery = Pendapatan::query();
+    $pengeluaranQuery = Pengeluaran::query();
 
-        return view('grafik.pemasukan_pengeluaran', compact('pengeluaran', 'pemasukan'));
+    if ($tahun) {
+        $pemasukanQuery->whereYear('tanggal_pemasukan', $tahun);
+        $pengeluaranQuery->whereYear('tanggal_pengeluaran', $tahun);
+    }
+
+    $pemasukan = $pemasukanQuery->select('periode')
+        ->selectRaw('SUM(harga) as total_pemasukan')
+        ->groupBy('periode')
+        ->pluck('total_pemasukan', 'periode');
+
+    $pengeluaran = $pengeluaranQuery->select('periode')
+        ->selectRaw('SUM(total_biaya_bibit + total_biaya_pupuk + upah_panen) as total_pengeluaran')
+        ->groupBy('periode')
+        ->pluck('total_pengeluaran', 'periode');
+
+    // Gabungkan semua periode yang ada di pemasukan dan pengeluaran
+    $allPeriodes = $pemasukan->keys()->merge($pengeluaran->keys())->unique();
+
+    // Ambil semua tahun unik dari pendapatan dan pengeluaran
+    $tahunList = Pendapatan::selectRaw('YEAR(tanggal_pemasukan) as tahun')
+        ->union(
+            Pengeluaran::selectRaw('YEAR(tanggal_pengeluaran) as tahun')
+        )
+        ->pluck('tahun')
+        ->unique()
+        ->sort()
+        ->values();
+
+    return view('grafik-keuangan', compact('pemasukan', 'pengeluaran', 'allPeriodes', 'tahunList', 'tahun'));
     }
 }

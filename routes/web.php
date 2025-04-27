@@ -36,8 +36,10 @@ Route::get('/riwayat-pengeluaran', [RiwayatPengeluaranController::class, 'index'
 Route::get('/dashboard', [BeritaController::class, 'index'])->middleware('auth')->name('dashboard');
 
 // Grafik
-Route::get('/grafik-pengeluaran', [RiwayatPengeluaranController::class, 'grafikPengeluaran'])->name('grafik.pengeluaran');
+Route::get('/grafik-pengeluaran', [App\Http\Controllers\GrafikPengeluaranController::class, 'index'])->name('grafik.pengeluaran');
+//Route::get('/grafik-pengeluaran', [RiwayatPengeluaranController::class, 'grafikPengeluaran'])->name('grafik.pengeluaran');
 Route::get('/grafik-pemasukan-pengeluaran', [GrafikController::class, 'index'])->name('grafik.pemasukan-pengeluaran');
+Route::get('/grafik-keuangan', [App\Http\Controllers\GrafikController::class, 'grafikKeuangan'])->name('grafik.keuangan');
 
 // Riwayat Pendapatan
 Route::get('/riwayat-pendapatan', [RiwayatPendapatanController::class, 'index'])->name('riwayat.pendapatan');
