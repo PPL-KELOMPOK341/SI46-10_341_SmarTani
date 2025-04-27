@@ -12,8 +12,16 @@ class RiwayatPengeluaran extends Model
     protected $table = 'riwayat_pengeluaran';
 
     protected $fillable = [
-        'nama_tanaman', 'periode', 'tanggal_penanaman',
-        'tanggal_pengeluaran', 'biaya_bibit', 'biaya_pupuk',
-        'upah_panen', 'jumlah_pupuk', 'jumlah_bibit'
+        'nama_tanaman',
+        'periode',
+        'tanggal_penanaman',
+        'tanggal_pengeluaran',
+        'biaya_bibit',
+        'biaya_pupuk',
+        'upah_panen',
+        'jumlah_pupuk',
+        'jumlah_bibit',
+        'keterangan',
+        'jumlah',
     ];
 }
