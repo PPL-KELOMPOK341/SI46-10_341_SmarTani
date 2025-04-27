@@ -1,3 +1,119 @@
+@import 'tailwindcss';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Reset dasar dan font */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Background dengan gambar */
+.background {
+    background-image: url('../images/back.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Kotak login */
+.login-box {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Logo lebih besar */
+.logo img {
+    width: 250px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Teks instruksi */
+.instruction {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Input field */
+input[type="email"],
+input[type="password"] {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* Lupa password - sekarang di bawah input password */
+.forgot-password-wrapper {
+    text-align: right;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.forgot-password {
+    font-size: 13px;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Tombol login */
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0066ff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.login-button:hover {
+    background-color: #0052cc;
+}
+
+/* Link ke pendaftaran */
+.register-link {
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.register-link a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}

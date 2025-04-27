@@ -1,8 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HasilPanenController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PendapatanController;
+use App\Http\Controllers\RiwayatPengeluaranController;
+use App\Http\Controllers\BeritaController;
 
 Route::get('/', function () {
     return view('welcome');
