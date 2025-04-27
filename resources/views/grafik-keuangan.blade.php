@@ -15,7 +15,7 @@
                     </option>
                 @endforeach
             </select>
-            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-md">
+            <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-md">
                 Filter
             </button>
         </div>

@@ -20,8 +20,12 @@
                 @endforeach
             </select>
 
-            <input type="date" name="tanggal_pengeluaran" value="{{ request('tanggal_pengeluaran') }}"
-                class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-green-200 focus:outline-none">
+            <input type="date" name="tanggal_mulai" value="{{ request('tanggal_mulai') }}"
+            class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-green-200 focus:outline-none">
+            <span class="text-gray-500">s/d</span>
+            <input type="date" name="tanggal_selesai" value="{{ request('tanggal_selesai') }}"
+            class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-green-200 focus:outline-none">
+
 
             <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-md">
                 Filter

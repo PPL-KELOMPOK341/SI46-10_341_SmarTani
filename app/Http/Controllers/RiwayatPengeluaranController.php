@@ -21,9 +21,9 @@ class RiwayatPengeluaranController extends Controller
             $query->where('periode', $request->periode);
         }
 
-        // Filter tanggal pengeluaran
-        if ($request->filled('tanggal_pengeluaran')) {
-            $query->whereDate('tanggal_pengeluaran', $request->tanggal_pengeluaran);
+        // Filter rentang tanggal
+        if ($request->filled('tanggal_mulai') && $request->filled('tanggal_selesai')) {
+        $query->whereBetween('tanggal_pengeluaran', [$request->tanggal_mulai, $request->tanggal_selesai]);
         }
 
         $data = $query->orderBy('tanggal_pengeluaran', 'desc')->get();
