@@ -12,6 +12,7 @@ return new class extends Migration
     {
         Schema::create('pendapatans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('penanaman_id')->constrained('penanamans')->onDelete('cascade');
             $table->string('nama_tanaman');
             $table->string('periode');
             $table->date('tanggal_penanaman');

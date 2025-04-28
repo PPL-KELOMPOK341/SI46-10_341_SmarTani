@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PenanamanController;
 use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\PendapatanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -51,9 +52,9 @@ require __DIR__.'/auth.php';
 // })->middleware(['auth'])->name('form-pencatatan');
 
 // Form Pendapatan
-// Route::get('/form-pendapatan', [PendapatanController::class, 'create'])->name('pendapatan.create');
-// Route::post('/form-pendapatan', [PendapatanController::class, 'store'])->name('pendapatan.store');
-// Route::post('/pendapatan/store', [PendapatanController::class, 'store'])->name('pendapatan.store');
+Route::get('/form-pendapatan', [PendapatanController::class, 'create'])->name('pendapatan.create');
+Route::post('/form-pendapatan', [PendapatanController::class, 'store'])->name('pendapatan.store');
+Route::post('/pendapatan/store', [PendapatanController::class, 'store'])->name('pendapatan.store');
 
 // Riwayat Pengeluaran
 // Route::get('/riwayat-pengeluaran', [RiwayatPengeluaranController::class, 'index'])->name('riwayat.index');
