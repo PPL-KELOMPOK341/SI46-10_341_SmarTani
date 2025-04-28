@@ -42,7 +42,7 @@
 
         <!-- Baris Kedua -->
         <div class="col-md-6 mb-4">
-            <a href="{{ route('dashboard') }}" class="text-decoration-none">
+            <a href="{{ route('pendapatan.create') }}" class="text-decoration-none">
                 <div class="card h-100" style="width: 340px; height: 319px; border-radius: 15px; margin: 0 auto;">
                     <img src="{{ asset('images/pencatatan/form-pendapatan.png') }}" class="card-img-top" alt="Pendapatan" style="height: 200px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px;">
                     <div class="card-body d-flex flex-column justify-content-center">

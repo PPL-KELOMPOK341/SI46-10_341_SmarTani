@@ -3,7 +3,7 @@
 @section('content')
 <div class="container my-5">
     <div class="card shadow-sm p-4">
-        <h2 class="mb-4">Detail Pendapatan</h2>
+        <h2 class="mb-4">Print Detail Pendapatan</h2>
         
         <hr>
 
@@ -67,13 +67,6 @@
 
         <div class="d-flex justify-content-center gap-3 mt-4">
             <a href="{{ route('riwayat_pendapatan.index') }}" class="btn btn-success">Kembali</a>
-            <a href="{{ route('pendapatan.print', $pendapatan->id) }}" class="btn btn-warning">Print</a>
-            <a href="{{ route('pendapatan.edit', $pendapatan->id) }}" class="btn btn-primary">Ubah</a>
-            <form action="{{ route('pendapatan.destroy', $pendapatan->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?');" class="d-inline">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger">Hapus</button>
-            </form>
         </div>
     </div>
 </div>

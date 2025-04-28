@@ -8,7 +8,7 @@
         <li class="nav-item"><a href="/form-pencatatan" class="nav-link">Form Pencatatan</a></li>
         <li class="nav-item"><a href="/riwayat-penanaman" class="nav-link">Riwayat Penanaman</a></li>
         <li class="nav-item"><a href="/riwayat-hasil-panen" class="nav-link">Riwayat Hasil Panen</a></li>
-        <li class="nav-item"><a href="/riwayat-pendapatan" class="nav-link">Riwayat Pendapatan</a></li>
+        <li class="nav-item"><a href="/riwayat_pendapatan" class="nav-link">Riwayat Pendapatan</a></li>
         <li class="nav-item"><a href="/riwayat-pengeluaran" class="nav-link">Riwayat Pengeluaran</a></li>
         <li class="nav-item"><a href="/grafik" class="nav-link">Grafik</a></li>
         <li class="nav-item"><a href="/form-pengaduan" class="nav-link">Form Pengaduan</a></li>
