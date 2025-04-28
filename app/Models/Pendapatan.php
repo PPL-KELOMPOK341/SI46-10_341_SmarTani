@@ -10,15 +10,14 @@ class Pendapatan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama_tanaman',
-        'periode',
-        'tanggal_penanaman',
+        'penanaman_id',
         'sumber_pendapatan',
         'tanggal_pemasukan',
-        'total_hasil_pendapatan',
-        'sumber_pendapatan_lainnya',
-        'harga',
-        'tanggal_pemasukan_lainnya',
-        'catatan',
+        'total_hasil_pendapatan'
     ];
+
+    public function penanaman()
+    {
+        return $this->belongsTo(Penanaman::class);
+    }
 }

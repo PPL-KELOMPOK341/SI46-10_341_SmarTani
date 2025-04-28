@@ -13,16 +13,9 @@ return new class extends Migration
         Schema::create('pendapatans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('penanaman_id')->constrained('penanamans')->onDelete('cascade');
-            $table->string('nama_tanaman');
-            $table->string('periode');
-            $table->date('tanggal_penanaman');
             $table->string('sumber_pendapatan');
             $table->date('tanggal_pemasukan');
             $table->integer('total_hasil_pendapatan');
-            $table->string('sumber_pendapatan_lainnya')->nullable();
-            $table->integer('harga')->nullable();
-            $table->date('tanggal_pemasukan_lainnya')->nullable();
-            $table->text('catatan')->nullable();
             $table->timestamps();
         });
     }
