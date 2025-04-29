@@ -8,6 +8,7 @@
             <x-text-input id="name" name="name" type="text" class="block mt-1 w-full" 
                 :value="old('name')" required autofocus autocomplete="name" dusk="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
+
         </div>
 
         <!-- Email Address -->
@@ -20,6 +21,7 @@
             @error('email')
                 <div dusk="email-error" class="mt-2 text-sm text-red-600">{{ $message }}</div>
             @enderror
+
         </div>
 
         <!-- Phone Number -->
@@ -28,6 +30,7 @@
             <x-text-input id="phone" name="phone" type="text" class="block mt-1 w-full" 
                 :value="old('phone')" required autocomplete="tel" dusk="phone" />
             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+
         </div>
 
         <!-- Password -->
@@ -36,11 +39,13 @@
             <x-text-input id="password" name="password" type="password" class="block mt-1 w-full" 
                 required autocomplete="new-password" dusk="password" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
+
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+<<<<<<< HEAD
             <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="block mt-1 w-full" 
                 required autocomplete="new-password" dusk="password_confirmation" />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
@@ -52,8 +57,13 @@
                 {{ __('Already registered?') }}
             </a>
 
+<<<<<<< HEAD
             <x-primary-button dusk="submit-register" type="submit" class="ms-4">
                 {{ __('Register') }}
+=======
+            <x-primary-button dusk="submit-register" class="ms-4">
+            {{ __('Register') }}
+>>>>>>> 2435130 (Update Test)
             </x-primary-button>
         </div>
     </form>

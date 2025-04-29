@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class RiwayatPengeluaranTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     /** @test */
     public function bisa_melihat_halaman_riwayat_pengeluaran()

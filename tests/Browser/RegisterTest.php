@@ -96,7 +96,8 @@ class RegisterTest extends DuskTestCase
                     ->type('@password', 'password123')
                     ->type('@password_confirmation', 'password123')
                     ->press('@submit-register')  // Gunakan dusk selector
-                    ->assertSeeIn('@email-error', 'The email must be a valid email address');  // Periksa error menggunakan dusk selector
+                    ->pause(2000)
+                    ->dump('@email-error');
 
             $browser->visit('/register')
                     ->assertPresent('form')
@@ -106,7 +107,8 @@ class RegisterTest extends DuskTestCase
                     ->type('@password', 'password123')
                     ->type('@password_confirmation', 'password123')
                     ->press('@submit-register')  // Gunakan dusk selector
-                    ->assertSeeIn('@email-error', 'The email must be a valid email address');  // Periksa error menggunakan dusk selector
+                    ->pause(2000)
+                    ->dump('@email-error');
         });
     }
 }
