@@ -38,6 +38,22 @@
                     <td>Jumlah Bibit</td>
                     <td class="fw-bold">{{ $penanaman->jumlah_bibit }} kg</td>
                 </tr>
+                <tr>
+                    <td>Jenis Pestisida</td>
+                    <td class="fw-bold">{{ $penanaman->jenis_pestisida ?? 'Tidak Ada' }}</td>
+                </tr>
+                <tr>
+                    <td>Jenis Pupuk</td>
+                    <td class="fw-bold">{{ $penanaman->jenis_pupuk ?? 'Tidak Ada' }}</td>
+                </tr>
+                <tr>
+                    <td>Kendala</td>
+                    <td class="fw-bold">{{ $penanaman->kendala ?? 'Tidak Ada' }}</td>
+                </tr>
+                <tr>
+                    <td>Catatan</td>
+                    <td class="fw-bold">{{ $penanaman->catatan ?? 'Tidak Ada' }}</td>
+                </tr>
             </tbody>
         </table>
 

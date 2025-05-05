@@ -30,8 +30,8 @@ class PenanamanController extends Controller
         $validated['user_id'] = auth()->id();
         $penanaman = \App\Models\Penanaman::create($validated);
 
-        //return redirect()->route('penanaman.hasil-form', $penanaman->id);
-        return redirect()->route('penanaman.index')->with('success', 'Data berhasil disimpan');
+        return redirect()->route('penanaman.hasil-form', $penanaman->id);
+        //return redirect()->route('penanaman.index')->with('success', 'Data berhasil disimpan');
     }
 
     public function index(Request $request)

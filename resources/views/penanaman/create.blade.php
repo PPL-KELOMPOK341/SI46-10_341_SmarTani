@@ -61,13 +61,24 @@
             <div class="col-md-6 mb-3">
                 <div class="mb-3 d-flex align-items-center">
                     <label class="me3" style="width: 200px;">Jenis Pestisida</label>
-                    <input type="text" name="jenis_pestisida" placeholder="(opsional)" class="form-control">
+                    <select name="jenis_pestisida" class="form-control selectpicker">
+                        <option value="">pilih jenis pestisida</option>
+                        <option>Herbisida</option>
+                        <option>Insektisida</option>
+                        <option>Fungisida</option>
+                        <option>Moluskisida</option>
+                    </select>
                 </div>
             </div>
             <div class="col-md-6 mb-3">
                 <div class="mb-3 d-flex align-items-center">
                     <label class="me3" style="width: 200px;">Jenis Pupuk</label>
-                    <input type="text" name="jenis_pupuk" placeholder="(opsional)" class="form-control">
+                    <select name="jenis_pupuk" class="form-control selectpicker">
+                        <option value="">pilih jenis pupuk</option>
+                        <option>Urea</option>
+                        <option>HCL</option>
+                        <option>NPK</option>
+                    </select>
                 </div>
             </div>
             <div class="col-md-6 mb-3">
