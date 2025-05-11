@@ -13,17 +13,44 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PenanamanController;
 use App\Http\Controllers\HasilPanenController;
 
-    Route::get('/', function () {
+// Halaman utama
+Route::get('/', function () {
     return view('welcome');
 });
 
-    Route::middleware('auth')->group(function () {
-    // Profile
+// Login untuk admin (custom view)
+Route::get('/admin/login', function () {
+    return view('admin.auth.login');
+})->middleware('guest')->name('admin.login');
+
+// Login untuk user (custom view)
+Route::get('/login', function () {
+    return view('auth.login');
+})->middleware('guest')->name('login');
+
+// Middleware untuk admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+    // Routes terkait admin lainnya
+    Route::get('/admin/berita', [BeritaController::class, 'adminIndex'])->name('admin.berita.index');
+    // Routes lainnya untuk admin
+});
+
+// Middleware untuk user biasa
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/user/dashboard', function () {
+        return view('user.dashboard');
+    })->name('user.dashboard');
+
+    // Profile routes untuk user
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    // Berita
+
+    // Dashboard dan Berita untuk user
     Route::get('/dashboard', [BeritaController::class, 'index'])->name('dashboard');
     Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
@@ -51,50 +78,15 @@ use App\Http\Controllers\HasilPanenController;
     Route::get('/riwayat_pendapatan', [PendapatanController::class, 'index'])->name('riwayat_pendapatan.index');
     Route::get('/pendapatan/{id}', [PendapatanController::class, 'show'])->name('pendapatan.show');
     Route::get('/pendapatan/{id}/print', [PendapatanController::class, 'print'])->name('pendapatan.print');
-
     Route::get('/pendapatan/{id}/edit', [PendapatanController::class, 'edit'])->name('pendapatan.edit');
     Route::put('/pendapatan/{id}', [PendapatanController::class, 'update'])->name('pendapatan.update');
     Route::delete('/pendapatan/{id}', [PendapatanController::class, 'destroy'])->name('pendapatan.destroy');
-    
+
+    // Form Pencatatan
     Route::get('/form-pencatatan', function () {
         return view('form-pencatatan');
     })->name('form-pencatatan');
-
-    // Dashboard
-    Route::get('/dashboard', [BeritaController::class, 'index'])->middleware('auth')->name('dashboard');
-Route::get('/berita/{slug}', function ($slug) {
-    $beritas = [
-        [
-            'judul' => 'Harga Cabai Meningkat di Bandung',
-            'tanggal' => '2024-06-03',
-            'isi' => 'Harga cabai mengalami kenaikan yang signifikan di daerah Bandung...',
-            'gambar' => 'path/to/image1.jpg',
-            'slug' => 'harga-cabai-meningkat-di-bandung'
-        ],
-        [
-            'judul' => 'Cabe lagi mahal',
-            'tanggal' => '2024-06-01',
-            'isi' => 'Kenaikan harga cabe berlanjut...',
-            'gambar' => 'path/to/image2.jpg',
-            'slug' => 'cabe-lagi-mahal'
-        ],
-        [
-            'judul' => 'Panen Raya Membuat Harga Sayur Turun',
-            'tanggal' => '2024-05-25',
-            'isi' => 'Karena panen raya, harga sayuran menurun drastis...',
-            'gambar' => 'path/to/image3.jpg',
-            'slug' => 'panen-raya-sayur'
-        ]
-    ];
-
-    $berita = collect($beritas)->firstWhere('slug', $slug);
-
-    if (!$berita) {
-        abort(404);
-    }
-
-    return view('berita.show', compact('berita'));
-});
 });
 
+// Auth routes (login, register, logout, dll dari Fortify)
 require __DIR__.'/auth.php';

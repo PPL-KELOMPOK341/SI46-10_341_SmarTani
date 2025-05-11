@@ -153,7 +153,7 @@
 
       <div id="loginOptions" class="btn-options" style="display: none;">
         <a href="{{ url('/login') }}" class="btn-petani">Login Petani</a>
-        <a href="{{ url('/login/admin') }}" class="btn-admin">Login Admin</a>
+        <a href="{{ url('/admin/login') }}" class="btn-admin">Login Admin</a>
       </div>
     </div>
 

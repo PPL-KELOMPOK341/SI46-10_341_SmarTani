@@ -4,37 +4,23 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+
 
 class FortifyServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        //
-    }
-
-    public function boot(): void
+    public function boot()
     {
         Fortify::loginView(function () {
-            return view('auth.login');
+            if (request()->is('admin/login')) {
+                return view('admin.auth.login'); // Tampilan login khusus admin
+            }
+            return view('auth.login'); // Tampilan login umum untuk user
         });
 
-        Fortify::registerView(function () {
-            return view('auth.register');
-        });
-
-        Fortify::requestPasswordResetLinkView(function () {
-            return view('auth.forgot-password');
-        });
-
-        Fortify::resetPasswordView(function ($request) {
-            return view('auth.reset-password', ['request' => $request]);
-        });
-
-        Fortify::authenticateUsing(function (Request $request) {
-            $user = User::where('email', $request->email)->first();
+        Fortify::authenticateUsing(function ($request) {
+            $user = \App\Models\User::where('email', $request->email)->first();
 
             if ($user && Hash::check($request->password, $user->password)) {
                 return $user;
@@ -42,5 +28,14 @@ class FortifyServiceProvider extends ServiceProvider
 
             return null;
         });
+
+        Fortify::redirects([
+            'login' => function () {
+                if (Auth::check() && Auth::user()->role === 'admin') {
+                    return '/admin/dashboard'; // Arahkan ke dashboard admin
+                }
+                return '/user/dashboard'; // Arahkan ke dashboard user biasa
+            },
+        ]);
     }
 }
