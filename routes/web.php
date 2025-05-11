@@ -38,8 +38,8 @@ use App\Http\Controllers\HasilPanenController;
     Route::delete('/penanaman/{id}', [PenanamanController::class, 'destroy'])->name('penanaman.destroy');
 
     // Hasil Panen
-    Route::get('/hasil-panen', [HasilPanenController::class, 'create'])->name('hasil-panen.create');
-    Route::post('/hasil-panen/store', [HasilPanenController::class, 'store'])->name('hasil-panen.store');
+    Route::post('hasil-panen/search', [HasilPanenController::class, 'search'])->name('hasil-panen.search');
+    Route::resource('hasil-panen', HasilPanenController::class);
 
     // Pengeluaran
     Route::resource('pengeluaran', PengeluaranController::class);
@@ -60,41 +60,7 @@ use App\Http\Controllers\HasilPanenController;
         return view('form-pencatatan');
     })->name('form-pencatatan');
 
-    // Dashboard
-    Route::get('/dashboard', [BeritaController::class, 'index'])->middleware('auth')->name('dashboard');
-Route::get('/berita/{slug}', function ($slug) {
-    $beritas = [
-        [
-            'judul' => 'Harga Cabai Meningkat di Bandung',
-            'tanggal' => '2024-06-03',
-            'isi' => 'Harga cabai mengalami kenaikan yang signifikan di daerah Bandung...',
-            'gambar' => 'path/to/image1.jpg',
-            'slug' => 'harga-cabai-meningkat-di-bandung'
-        ],
-        [
-            'judul' => 'Cabe lagi mahal',
-            'tanggal' => '2024-06-01',
-            'isi' => 'Kenaikan harga cabe berlanjut...',
-            'gambar' => 'path/to/image2.jpg',
-            'slug' => 'cabe-lagi-mahal'
-        ],
-        [
-            'judul' => 'Panen Raya Membuat Harga Sayur Turun',
-            'tanggal' => '2024-05-25',
-            'isi' => 'Karena panen raya, harga sayuran menurun drastis...',
-            'gambar' => 'path/to/image3.jpg',
-            'slug' => 'panen-raya-sayur'
-        ]
-    ];
-
-    $berita = collect($beritas)->firstWhere('slug', $slug);
-
-    if (!$berita) {
-        abort(404);
-    }
-
-    return view('berita.show', compact('berita'));
-});
+    
 });
 
 require __DIR__.'/auth.php';
