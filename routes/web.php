@@ -24,5 +24,13 @@ use App\Http\Controllers\SettingWebsiteController;
 Route::get('/setting-website', [SettingWebsiteController::class, 'index'])->name('setting.website');
 Route::post('/setting-website', [SettingWebsiteController::class, 'store']);
 
+//Beranda Admin
+use App\Http\Controllers\AdminController;
+
+Route::get('/beranda-admin', [AdminController::class, 'index'])->name('beranda.admin');
+Route::get('/beranda-admin', function () {
+    return view('beranda-admin');
+})->name('beranda.admin');
+
 
 

@@ -40,7 +40,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-4">
+<div class="container pt-5">
     <h3 class="mb-4">Setting Website</h3>
 
     @if(session('success'))
