@@ -12,6 +12,11 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PenanamanController;
 use App\Http\Controllers\HasilPanenController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\UserController;
+
+Route::middleware(['auth', AdminMiddleware::class])->group(function () {
+    // Other routes...
 
     Route::get('/', function () {
     return view('welcome');
@@ -61,6 +66,16 @@ use App\Http\Controllers\HasilPanenController;
     })->name('form-pencatatan');
 
     
+      
+
+    // User Management
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    });
 });
 
 require __DIR__.'/auth.php';
