@@ -43,9 +43,15 @@ return [
     ],
 
     /*
+<<<<<<< HEAD
+    |----------------------------------------------------------------------
+    | User Providers
+    |----------------------------------------------------------------------
+=======
     |--------------------------------------------------------------------------
     | User Providers
     |--------------------------------------------------------------------------
+>>>>>>> f3532c910ae6332aca9f30ce8059177aa7abdf89
     |
     | All authentication guards have a user provider, which defines how the
     | users are actually retrieved out of your database or other storage
