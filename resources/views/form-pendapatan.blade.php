@@ -64,16 +64,28 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label>Total Hasil Pendapatan (Rp) <span style="color: red;">*</span></label>
-                                <input type="number" name="total_hasil_pendapatan" class="form-control" required min="0">
+                                <input type="number" name="total_hasil_pendapatan" class="form-control" value="{{ old('total_hasil_pendapatan') }}" required min="0">
+                                @error('total_hasil_pendapatan')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="row mt-4">
+<<<<<<< HEAD
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">Simpan Data</button>
                                 <a href="{{ route('riwayat_pendapatan.index') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </div>
+=======
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Simpan Data</button>
+        <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
+    </div>
+</div>
+
+>>>>>>> f3532c910ae6332aca9f30ce8059177aa7abdf89
                     </div>
                 </form>
             @endif

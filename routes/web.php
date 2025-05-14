@@ -71,53 +71,45 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Berita
+    Route::get('/dashboard', [BeritaController::class, 'index'])->name('dashboard');
+    Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
     // Penanaman
-    Route::prefix('penanaman')->group(function () {
-        Route::get('/form', [PenanamanController::class, 'create'])->name('penanaman.create');
-        Route::post('/form', [PenanamanController::class, 'store'])->name('penanaman.store');
-        Route::get('/riwayat', [PenanamanController::class, 'index'])->name('penanaman.index');
-        Route::get('/form/hasil/{id}', [PenanamanController::class, 'hasilForm'])->name('penanaman.hasil-form');
-        Route::get('/riwayat/detail/{id}', [PenanamanController::class, 'lihatDetail'])->name('penanaman.lihat-detail');
-        Route::get('/{id}/edit', [PenanamanController::class, 'edit'])->name('penanaman.edit');
-        Route::put('/{id}', [PenanamanController::class, 'update'])->name('penanaman.update');
-        Route::delete('/{id}', [PenanamanController::class, 'destroy'])->name('penanaman.destroy');
-    });
+    Route::get('/form-penanaman', [PenanamanController::class, 'create'])->name('penanaman.create');
+    Route::post('/form-penanaman', [PenanamanController::class, 'store'])->name('penanaman.store');
+    Route::get('/riwayat-penanaman', [PenanamanController::class, 'index'])->name('penanaman.index');
+    Route::get('/form-penanaman/hasil/{id}', [PenanamanController::class, 'hasilForm'])->name('penanaman.hasil-form');
+    Route::get('/riwayat-penanaman/detail/{id}', [PenanamanController::class, 'lihatDetail'])->name('penanaman.lihat-detail');
+    Route::get('/penanaman/{id}/edit', [PenanamanController::class, 'edit'])->name('penanaman.edit');
+    Route::put('/penanaman/{id}', [PenanamanController::class, 'update'])->name('penanaman.update');
+    Route::delete('/penanaman/{id}', [PenanamanController::class, 'destroy'])->name('penanaman.destroy');
 
     // Hasil Panen
-    Route::prefix('hasil-panen')->group(function () {
-        Route::get('/', [HasilPanenController::class, 'index'])->name('hasil-panen.index');
-        Route::get('/create', [HasilPanenController::class, 'create'])->name('hasil-panen.create');
-        Route::post('/store', [HasilPanenController::class, 'store'])->name('hasil-panen.store');
-        Route::get('/{id}', [HasilPanenController::class, 'show'])->name('hasil-panen.show');
-        Route::get('/{id}/edit', [HasilPanenController::class, 'edit'])->name('hasil-panen.edit');
-        Route::put('/{id}', [HasilPanenController::class, 'update'])->name('hasil-panen.update');
-        Route::delete('/{id}', [HasilPanenController::class, 'destroy'])->name('hasil-panen.destroy');
-    });
+    Route::post('hasil-panen/search', [HasilPanenController::class, 'search'])->name('hasil-panen.search');
+    Route::resource('hasil-panen', HasilPanenController::class);
 
     // Pengeluaran
     Route::resource('pengeluaran', PengeluaranController::class);
     Route::post('pengeluaran/search', [PengeluaranController::class, 'search'])->name('pengeluaran.search');
 
     // Pendapatan
-    Route::prefix('pendapatan')->group(function () {
-        Route::get('/form', [PendapatanController::class, 'create'])->name('pendapatan.create');
-        Route::post('/form', [PendapatanController::class, 'store'])->name('pendapatan.store');
-        Route::get('/riwayat', [PendapatanController::class, 'index'])->name('riwayat_pendapatan.index');
-        Route::get('/{id}', [PendapatanController::class, 'show'])->name('pendapatan.show');
-        Route::get('/{id}/print', [PendapatanController::class, 'print'])->name('pendapatan.print');
-        Route::get('/{id}/edit', [PendapatanController::class, 'edit'])->name('pendapatan.edit');
-        Route::put('/{id}', [PendapatanController::class, 'update'])->name('pendapatan.update');
-        Route::delete('/{id}', [PendapatanController::class, 'destroy'])->name('pendapatan.destroy');
-    });
+    Route::get('/form-pendapatan', [PendapatanController::class, 'create'])->name('pendapatan.create');
+    Route::post('/form-pendapatan', [PendapatanController::class, 'store'])->name('pendapatan.store');
+    Route::get('/riwayat_pendapatan', [PendapatanController::class, 'index'])->name('riwayat_pendapatan.index');
+    Route::get('/pendapatan/{id}', [PendapatanController::class, 'show'])->name('pendapatan.show');
+    Route::get('/pendapatan/{id}/print', [PendapatanController::class, 'print'])->name('pendapatan.print');
 
-    // Form Pencatatan Manual
+    Route::get('/pendapatan/{id}/edit', [PendapatanController::class, 'edit'])->name('pendapatan.edit');
+    Route::put('/pendapatan/{id}', [PendapatanController::class, 'update'])->name('pendapatan.update');
+    Route::delete('/pendapatan/{id}', [PendapatanController::class, 'destroy'])->name('pendapatan.destroy');
+    
     Route::get('/form-pencatatan', function () {
         return view('form-pencatatan');
     })->name('form-pencatatan');
+
+    
 });
 
-// ============================
-// Fortify (or Laravel UI) Auth Routes
-// ============================
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

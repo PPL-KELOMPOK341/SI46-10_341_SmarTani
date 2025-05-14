@@ -31,8 +31,13 @@ abstract class DuskTestCase extends BaseTestCase
             '--start-maximized',
             '--disable-search-engine-choice-screen',
             '--disable-smooth-scrolling',
-        ]);
-    
+        ])->unless($this->hasHeadlessDisabled(), function (Collection $items) {
+            return $items->merge([
+                '--disable-gpu',
+                // '--headless=new',
+            ]);
+        })->all();
+
         return RemoteWebDriver::create(
             $_ENV['DUSK_DRIVER_URL'] ?? env('DUSK_DRIVER_URL') ?? 'http://localhost:9515',
             DesiredCapabilities::chrome()->setCapability(
