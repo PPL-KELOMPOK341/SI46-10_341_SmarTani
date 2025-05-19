@@ -65,10 +65,6 @@
                             </td>
                             <td class="text-center">
                                 <a href="{{ route('pengaduan.show', $item->id) }}" class="btn btn-info btn-sm">Lihat</a>
-                                <a href="{{ route('pengaduan.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                <form action="{{ route('pengaduan.destroy', $item->id) }}" method="POST" class="d-inline">
-                                    @csrf @method('DELETE')
-                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Delete</button>
                                 </form>
                             </td>
                         </tr>
