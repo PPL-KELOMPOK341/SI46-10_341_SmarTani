@@ -4,7 +4,7 @@
     <a href="{{ url('/admin/beranda') }}">Beranda</a>
 </div>
 <div class="{{ request()->is('data-user') ? 'active' : '' }}">
-    <a href="{{ url('/data-user') }}">Data User</a>
+    <a href="{{ url('/admin/users') }}">Data User</a>
 </div>
 <div class="{{ request()->is('pengaduan') ? 'active' : '' }}">
     <a href="{{ url('/pengaduan') }}">Riwayat Pengaduan</a>

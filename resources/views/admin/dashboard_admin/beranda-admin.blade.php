@@ -9,7 +9,7 @@
 
     <div class="row mt-4">
         <div class="col-md-4">
-            <a href="{{ url('/data-user') }}" class="text-decoration-none">
+            <a href="{{ url('/admin/users') }}" class="text-decoration-none">
                 <div class="card text-white bg-success mb-3 shadow">
                     <div class="card-body text-center">
                         <h3><i class="bi bi-person-fill"></i> 50</h3>

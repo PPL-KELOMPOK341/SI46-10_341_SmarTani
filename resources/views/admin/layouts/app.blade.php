@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>{{ \App\Models\Setting::first()->site_title ?? 'SmarTani' }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body { display: flex; min-height: 100vh; margin: 0; }
         .sidebar { width: 220px; background-color: #f2f2f2; padding-top: 70px; }
