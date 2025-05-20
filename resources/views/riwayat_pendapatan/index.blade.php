@@ -2,8 +2,9 @@
 
 @section('content')
 <main class="flex-grow-1 p-4 bg-white overflow-auto">
-    <div class="d-flex justify-content-center align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Riwayat Pendapatan</h2>
+        <a href="{{ route('pendapatan.create') }}" class="btn btn-success">Tambah Pendapatan</a>
     </div>
 
     <!-- Pencarian dan Sort Filter -->
@@ -57,7 +58,7 @@
                         <th>Sumber Pendapatan</th>
                         <th>Tanggal Pemasukan</th>
                         <th>Total Hasil (Rp)</th>
-                        <th>Aksi</th> <!-- Tambahan kolom Aksi -->
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,10 +71,14 @@
                             <td>{{ \Carbon\Carbon::parse($pendapatan->tanggal_pemasukan)->format('d F Y') }}</td>
                             <td>{{ number_format($pendapatan->total_hasil_pendapatan, 0, ',', '.') }}</td>
                             <td>
-                                <a href="{{ route('pendapatan.show', $pendapatan->id) }}" class="btn btn-info btn-sm">
-                                    Lihat Detail
-                                </a>
-                            </td> <!-- Tombol lihat detail -->
+                                <a href="{{ route('pendapatan.show', $pendapatan->id) }}" class="btn btn-info btn-sm">Detail</a>
+                                <a href="{{ route('pendapatan.edit', $pendapatan->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{{ route('pendapatan.destroy', $pendapatan->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

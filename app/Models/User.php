@@ -47,8 +47,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function penanamans()
+    public function penanaman()
     {
-        return $this->hasMany(Penanaman::class);
+        return $this->hasMany(\App\Models\Penanaman::class);
     }
 }
