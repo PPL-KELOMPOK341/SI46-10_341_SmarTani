@@ -1,159 +1,174 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\HasilPanen;
 use App\Models\Penanaman;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class HasilPanenController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        // Cek apakah ada riwayat penanaman
-        $hasPlanting = Penanaman::where('user_id', auth()->id())->exists();
+public function index(Request $request)
+{
+    $userId = auth()->id();
 
-        if (!$hasPlanting) {
-            return view('hasil_panen.index')->with('noPlanting', true);
-        }
+    // Cek apakah user punya data penanaman
+    $hasPlanting = Penanaman::where('user_id', $userId)->exists();
 
-        // Ambil data pengeluaran yang terkait dengan penanaman milik user yang login
-        $hasilPanen = HasilPanen::with('penanaman')
-            ->whereHas('penanaman', function($query) {
-                $query->where('user_id', auth()->id());
-            })->latest()->get();
-
-        return view('hasil_panen.index', compact('hasilPanen'));
-
+    if (!$hasPlanting) {
+        return view('hasil_panen.index')->with('noPlanting', true);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    $query = HasilPanen::with('penanaman')
+        ->whereHas('penanaman', function ($q) use ($userId) {
+            $q->where('user_id', $userId);
+        });
+
+    // ✅ Filter/Search
+    if ($search = $request->search) {
+        $query->where(function ($q) use ($search) {
+            $q->where('kualitas_hasil_panen', 'like', '%' . $search . '%')
+              ->orWhere('tanggal_panen', 'like', '%' . $search . '%')
+              ->orWhereHas('penanaman', function ($q2) use ($search) {
+                  $q2->where('nama_tanaman', 'like', '%' . $search . '%');
+              });
+        });
+    }
+
+    // ✅ Sorting
+    if ($request->has('sort')) {
+        $direction = $request->get('direction', 'asc');
+        switch ($request->sort) {
+            case 'tanggal':
+                $query->orderBy('tanggal_panen', $direction);
+                break;
+            case 'kualitas':
+                $query->orderBy('kualitas_hasil_panen', $direction);
+                break;
+            case 'jumlah':
+                $query->orderBy('jumlah_hasil_panen', $direction);
+                break;
+            default:
+                $query->latest();
+                break;
+        }
+    } else {
+        $query->latest();
+    }
+
+    $hasilPanen = $query->get();
+
+    return view('hasil_panen.index', compact('hasilPanen'));
+}
+
+
     public function create()
     {
         return view('hasil_panen.search');
     }
 
-public function search(Request $request)
+    public function search(Request $request)
     {
         $request->validate([
-            'nama_tanaman' => 'required|string'
+            'nama_tanaman' => 'required|string',
         ]);
 
         $penanaman = Penanaman::where('user_id', auth()->id())
-                            ->where('nama_tanaman', 'like', '%' . $request->nama_tanaman . '%')
-                            ->first();
+            ->where('nama_tanaman', 'like', '%' . $request->nama_tanaman . '%')
+            ->first();
 
         if (!$penanaman) {
-            return redirect()->back()
-                            ->with('error', 'Tidak ada data penanaman dengan nama tanaman tersebut')
-                            ->withInput();
+            return back()->with('error', 'Tidak ada data penanaman dengan nama tersebut')->withInput();
+        }
+
+        // Cek batas maksimal data hasil panen per penanaman
+        $jumlahHasilPanen = HasilPanen::where('penanaman_id', $penanaman->id)->count();
+        if ($jumlahHasilPanen >= 10) {
+            return back()->with('error', 'Anda sudah mencapai batas maksimal 10 hasil panen untuk penanaman ini.');
         }
 
         return view('hasil_panen.form', compact('penanaman'));
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'penanaman_id' => 'required|exists:penanamans,id',
-            'kualitas_hasil_panen' => 'required',
+            'kualitas_hasil_panen' => 'required|string',
             'tanggal_panen' => 'required|date',
             'harga_jual_satuan' => 'required|numeric',
             'jumlah_hasil_panen' => 'required|numeric',
             'catatan' => 'nullable|string',
         ]);
 
-        // Pastikan penanaman yang dipilih adalah milik user yang login
+        // Cek apakah penanaman milik user
         $penanaman = Penanaman::where('user_id', auth()->id())
-                            ->findOrFail($request->penanaman_id);
+            ->findOrFail($request->penanaman_id);
 
-        // Convert tanggal_pengeluaran to Carbon instance
+        // Cek batas maksimal data hasil panen
+        $jumlahHasilPanen = HasilPanen::where('penanaman_id', $penanaman->id)->count();
+        if ($jumlahHasilPanen >= 10) {
+            return back()->with('error', 'Anda sudah mencapai batas maksimal 10 hasil panen untuk penanaman ini.');
+        }
+
         $validated['tanggal_panen'] = Carbon::parse($validated['tanggal_panen']);
 
         HasilPanen::create($validated);
 
         return redirect()->route('hasil-panen.index')->with('success', 'Data hasil panen berhasil disimpan.');
-
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
         $hasilPanen = HasilPanen::with('penanaman')
-            ->whereHas('penanaman', function($query) {
-                $query->where('user_id', auth()->id());
-            })->findOrFail($id);
+            ->whereHas('penanaman', fn($q) => $q->where('user_id', auth()->id()))
+            ->findOrFail($id);
 
         return view('hasil_panen.show', compact('hasilPanen'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $hasilPanen = HasilPanen::with('penanaman')
-            ->whereHas('penanaman', function($query) {
-                $query->where('user_id', auth()->id());
-            })->findOrFail($id);
+            ->whereHas('penanaman', fn($q) => $q->where('user_id', auth()->id()))
+            ->findOrFail($id);
 
         $penanaman = $hasilPanen->penanaman;
+
         return view('hasil_panen.form', compact('hasilPanen', 'penanaman'));
     }
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+    public function update(Request $request, $id)
     {
-        $hasilPanen = HasilPanen::whereHas('penanaman', function($query) {
-            $query->where('user_id', auth()->id());
-        })->findOrFail($id);
+        $hasilPanen = HasilPanen::whereHas('penanaman', fn($q) => $q->where('user_id', auth()->id()))
+            ->findOrFail($id);
 
         $validated = $request->validate([
             'penanaman_id' => 'required|exists:penanamans,id',
-            'kualitas_hasil_panen' => 'required',
+            'kualitas_hasil_panen' => 'required|string',
             'tanggal_panen' => 'required|date',
             'harga_jual_satuan' => 'required|numeric',
             'jumlah_hasil_panen' => 'required|numeric',
             'catatan' => 'nullable|string',
         ]);
 
+        // Cek ulang penanaman yang dipilih
         $penanaman = Penanaman::where('user_id', auth()->id())
-                    ->findOrFail($request->penanaman_id);
+            ->findOrFail($request->penanaman_id);
 
-        // Convert tanggal_pengeluaran to Carbon instance
         $validated['tanggal_panen'] = Carbon::parse($validated['tanggal_panen']);
 
         $hasilPanen->update($validated);
 
-        return redirect()->route('hasil-panen.index')->with('success', 'Data pengeluaran berhasil diperbarui.');
-
-
-
+        return redirect()->route('hasil-panen.index')->with('success', 'Data hasil panen berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        $hasilPanen = HasilPanen::whereHas('penanaman', function($query) {
-            $query->where('user_id', auth()->id());
-        })->findOrFail($id);
+        $hasilPanen = HasilPanen::whereHas('penanaman', fn($q) => $q->where('user_id', auth()->id()))
+            ->findOrFail($id);
 
         $hasilPanen->delete();
 

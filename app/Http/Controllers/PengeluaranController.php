@@ -9,23 +9,50 @@ use Carbon\Carbon;
 
 class PengeluaranController extends Controller
 {
-    public function index()
-    {
-        // Cek apakah ada riwayat penanaman
-        $hasPlanting = Penanaman::where('user_id', auth()->id())->exists();
+public function index(Request $request)
+{
+    // Cek apakah ada penanaman milik user
+    $hasPlanting = Penanaman::where('user_id', auth()->id())->exists();
+    if (!$hasPlanting) {
+        return view('pengeluaran.index')->with('noPlanting', true);
+    }
 
-        if (!$hasPlanting) {
-            return view('pengeluaran.index')->with('noPlanting', true);
-        }
+    // Ambil keyword pencarian jika ada
+    $search = $request->input('search');
 
-        // Ambil data pengeluaran yang terkait dengan penanaman milik user yang login
-        $pengeluaran = Pengeluaran::with('penanaman')
-            ->whereHas('penanaman', function($query) {
-                $query->where('user_id', auth()->id());
-            })->latest()->get();
+    // Query dasar
+    $query = Pengeluaran::with('penanaman')
+        ->whereHas('penanaman', function ($q) use ($search) {
+            $q->where('user_id', auth()->id());
 
-        return view('pengeluaran.index', compact('pengeluaran'));
-    }   
+            if ($search) {
+                $q->where('nama_tanaman', 'like', '%' . $search . '%');
+            }
+        });
+
+    // Sorting langsung di query builder
+    $sort = $request->input('sort');
+    $direction = $request->input('direction') === 'desc' ? 'desc' : 'asc';
+
+    if ($sort === 'tanaman') {
+        $query = $query->join('penanamans', 'pengeluarans.penanaman_id', '=', 'penanamans.id')
+                    ->orderBy('penanamans.nama_tanaman', $direction);
+    } elseif ($sort === 'periode') {
+        $query = $query->join('penanamans', 'pengeluarans.penanaman_id', '=', 'penanamans.id')
+                    ->orderBy('penanamans.periode', $direction);
+    } elseif ($sort === 'tanggal') {
+        $query = $query->orderBy('tanggal_pengeluaran', $direction);
+    } else {
+        $query = $query->orderBy('tanggal_pengeluaran', 'desc'); // default
+    }
+
+    $pengeluaran = $query->select('pengeluarans.*')->get();
+
+
+    return view('pengeluaran.index', compact('pengeluaran', 'search'));
+}
+
+ 
 
     public function create()
     {

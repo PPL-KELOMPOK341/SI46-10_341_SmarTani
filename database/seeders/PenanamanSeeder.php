@@ -2,41 +2,39 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Penanaman;
 use App\Models\User;
+use App\Models\Penanaman;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class PenanamanSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        // Get all users or create a default user if none exists
-        $users = User::all();
-        if ($users->isEmpty()) {
-            $users = collect([User::factory()->create()]);
-        }
+        $namaTanamanList = ['Padi IR64', 'Jagung Manis', 'Kacang Tanah', 'Cabai Rawit', 'Tomat'];
+        $periodeList = ['Musim Tanam I', 'Musim Tanam II', 'Musim Hujan', 'Musim Kemarau'];
+        $pupukList = ['Urea', 'ZA', 'SP-36', 'KCl'];
+        $pestisidaList = ['Deltametrin', 'Karbofuran', 'Abamektin', 'None'];
 
-        // For each user, create some Penanaman records with default values
+        $users = User::all();
+
         foreach ($users as $user) {
-            Penanaman::factory()->count(5)->create([
-                'user_id' => $user->id,
-                'nama_tanaman' => 'Cabai Merah',
-                'lokasi_lahan' => 'Lahan A',
-                'luas_lahan' => 1000,
-                'periode' => '2025 Q2',
-                'tanggal_penanaman' => now()->subDays(30),
-                'jumlah_pupuk' => 10,
-                'jumlah_bibit' => 500,
-                'jenis_pestisida' => 'Pestisida A',
-                'jenis_pupuk' => 'Pupuk Organik',
-                'kendala' => 'Tidak ada kendala',
-                'catatan' => 'Catatan tambahan',
-            ]);
+            for ($i = 0; $i < 5; $i++) {
+                Penanaman::create([
+                    'user_id' => $user->id,
+                    'nama_tanaman' => $namaTanamanList[array_rand($namaTanamanList)],
+                    'lokasi_lahan' => 'Lahan Blok ' . chr(65 + $i) . rand(1, 9),
+                    'luas_lahan' => rand(500, 2000),
+                    'periode' => $periodeList[array_rand($periodeList)],
+                    'tanggal_penanaman' => now()->subDays(rand(1, 60)),
+                    'jumlah_pupuk' => rand(50, 200),
+                    'jumlah_bibit' => rand(30, 150),
+                    'jenis_pupuk' => $pupukList[array_rand($pupukList)],
+                    'jenis_pestisida' => $pestisidaList[array_rand($pestisidaList)] ?? null,
+                    'kendala' => rand(0, 1) ? 'Hama ' . Str::random(5) : null,
+                    'catatan' => rand(0, 1) ? 'Catatan penting ' . Str::random(10) : null,
+                ]);
+            }
         }
     }
 }
