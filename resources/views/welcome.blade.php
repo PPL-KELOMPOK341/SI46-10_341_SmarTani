@@ -139,10 +139,16 @@
 </head>
 <body>
 
-  <header>
+  <!-- <header>
     <h1>SmarTani: Aplikasi Petani Cerdas</h1>
     <p>Mengelola hasil panen & cuaca secara digital untuk petani Indonesia</p>
+  </header> -->
+
+  <header>
+  <h1>{{ get_setting('site_title', 'SmarTani: Aplikasi Petani Cerdas') }}</h1>
+  <p>{{ get_setting('site_description', 'Mengelola hasil panen & cuaca secara digital untuk petani Indonesia') }}</p>
   </header>
+
 
   <section class="hero">
     <div class="hero-text">
@@ -153,7 +159,7 @@
 
       <div id="loginOptions" class="btn-options" style="display: none;">
         <a href="{{ url('/login') }}" class="btn-petani">Login Petani</a>
-        <a href="{{ url('/login/admin') }}" class="btn-admin">Login Admin</a>
+        <a href="{{ url('/admin/login') }}" class="btn-admin">Login Admin</a>
       </div>
     </div>
 
