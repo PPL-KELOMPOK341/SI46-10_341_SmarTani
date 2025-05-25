@@ -1,84 +1,78 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-4">
-    <h4 class="mb-4">Form Pencatatan Hasil Panen</h4>
+<div class="container mt-4">
+    <legend class="mb-3">{{ isset($hasilPanen) ? 'EDIT' : 'TAMBAH' }} HASIL PANEN</legend>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+    <div class="card">
+        <div class="card-body">
+            <div class="alert alert-info">
+                <strong>Data Penanaman:</strong><br>
+                Nama Tanaman: {{ $penanaman->nama_tanaman }}<br>
+                Periode: {{ $penanaman->periode }}<br>
+                Lokasi Lahan: {{ $penanaman->lokasi_lahan }}<br>
+                Tanggal Penanaman: {{ $penanaman->tanggal_penanaman->format('d/m/Y') }}
+            </div>
 
-    <form action="{{ url('/hasil-panen/store') }}" method="POST">
-        @csrf
+            <form action="{{ isset($hasilPanen) ? route('hasil-panen.update', $hasilPanen->id) : route('hasil-panen.store') }}" method="POST">
+                @csrf
+                @if(isset($hasilPanen))
+                    @method('PUT')
+                @endif
 
-        <div class="card shadow-sm p-4">
-            <h5>Informasi Penanaman</h5>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Nama Tanaman *</label>
-                    <input type="text" name="nama_tanaman" class="form-control" value="{{ old('nama_tanaman') }}" required>
+                <input type="hidden" name="penanaman_id" value="{{ $penanaman->id }}">
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="mb-3 d-flex align-items-center">
+                            <label class="me3" style="width: 200px;">Kualitas Hasil Panen <span class="text-danger">*</span></label>
+                            <select name="kualitas_hasil_panen" class="form-select" required>
+                                <option value="">-- Pilih Kualitas --</option>
+                                <option value="Baik" {{ (old('kualitas_hasil_panen', $hasilPanen->kualitas_hasil_panen ?? '') == 'Baik') ? 'selected' : '' }}>Baik</option>
+                                <option value="Sedang" {{ (old('kualitas_hasil_panen', $hasilPanen->kualitas_hasil_panen ?? '') == 'Sedang') ? 'selected' : '' }}>Sedang</option>
+                                <option value="Buruk" {{ (old('kualitas_hasil_panen', $hasilPanen->kualitas_hasil_panen ?? '') == 'Buruk') ? 'selected' : '' }}>Buruk</option>
+                            </select>
+                            
+                            {{-- <input type="text" name="kualitas_hasil_panen" class="form-control" placeholder="Rp." value="{{ isset($hasilPanen) ? $hasilPanen->kualitas_hasil_panen : old('kualitas_hasil_panen') }}" required> --}}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="mb-3 d-flex align-items-center">
+                            <label class="me3" style="width: 200px;">Harga Jual Per KG <span class="text-danger">*</span></label>
+                            <input type="number" name="harga_jual_satuan" class="form-control" placeholder="Rp." value="{{ isset($hasilPanen) ? $hasilPanen->harga_jual_satuan : old('harga_jual_satuan') }}" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="mb-3 d-flex align-items-center">
+                            <label class="me3" style="width: 200px;">Tanggal Panen <span class="text-danger">*</span></label>
+                            <input type="date" name="tanggal_panen" class="form-control" value="{{ isset($hasilPanen) ? $hasilPanen->tanggal_panen->format('Y-m-d') : old('tanggal_panen') }}" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="mb-3 d-flex align-items-center">
+                            <label class="me3" style="width: 200px;">Jumlah Hasil Panen <span class="text-danger">*</span></label>
+                            <input type="number" name="jumlah_hasil_panen" class="form-control" placeholder="(kg)" value="{{ isset($hasilPanen) ? $hasilPanen->jumlah_hasil_panen : old('jumlah_hasil_panen') }}" required>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="mb-3 d-flex align-items-center">
+                            <label class="me3" style="width: 170px;">Catatan</label>
+                            <input type="text" name="catatan" placeholder="(opsional)" class="form-control" value="{{ isset($hasilPanen) ? $hasilPanen->catatan : old('catatan') }}">
+                        </div>
+                    </div>
+        
                 </div>
-                <div class="col-md-6">
-                    <label class="form-label">Periode *</label>
-                    <select name="periode" class="form-select" required>
-                        <option value="">-- Pilih Periode --</option>
-                        <option value="Periode 1" {{ old('periode') == 'Periode 1' ? 'selected' : '' }}>Periode 1</option>
-                        <option value="Periode 2" {{ old('periode') == 'Periode 2' ? 'selected' : '' }}>Periode 2</option>
-                        <!-- Tambah sesuai kebutuhan -->
-                    </select>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">{{ isset($hasilPanen) ? 'Update' : 'Simpan' }}</button>
+                    <a href="{{ route('hasil-panen.index') }}" class="btn-kembali btn btn-danger">Kembali</a>
                 </div>
-            </div>
-
-            <div class="mb-4">
-                <label class="form-label">Tanggal Penanaman *</label>
-                <input type="date" name="tanggal_penanaman" class="form-control" value="{{ old('tanggal_penanaman') }}" required>
-            </div>
-
-            <h5>🌾 Tahap Panen</h5>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Lokasi Lahan *</label>
-                    <input type="text" name="lokasi_lahan" class="form-control" value="{{ old('lokasi_lahan') }}" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Kualitas Hasil Panen *</label>
-                    <select name="kualitas_hasil_panen" class="form-select" required>
-                        <option value="">-- Pilih Kualitas --</option>
-                        <option value="Baik" {{ old('kualitas_hasil_panen') == 'Baik' ? 'selected' : '' }}>Baik</option>
-                        <option value="Sedang" {{ old('kualitas_hasil_panen') == 'Sedang' ? 'selected' : '' }}>Sedang</option>
-                        <option value="Buruk" {{ old('kualitas_hasil_panen') == 'Buruk' ? 'selected' : '' }}>Buruk</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Harga Jual Satuan *</label>
-                    <input type="number" name="harga_jual_satuan" class="form-control" value="{{ old('harga_jual_satuan') }}" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Tanggal Panen *</label>
-                    <input type="date" name="tanggal_panen" class="form-control" value="{{ old('tanggal_panen') }}" required>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Jumlah Hasil Panen *</label>
-                <input type="number" name="jumlah_hasil_panen" class="form-control" value="{{ old('jumlah_hasil_panen') }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Catatan</label>
-                <textarea name="catatan" class="form-control" rows="3">{{ old('catatan') }}</textarea>
-            </div>
-
-            <p class="text-muted"><span class="text-danger">*</span> Wajib diisi</p>
-
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-success">Simpan</button>
-                <a href="#" onclick="history.back()" class="btn btn-danger">Kembali</a>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 @endsection
+

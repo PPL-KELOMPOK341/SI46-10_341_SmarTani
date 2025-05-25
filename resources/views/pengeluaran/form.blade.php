@@ -43,7 +43,7 @@
                     <div class="col-md-6 mb-3">
                         <div class="mb-3 d-flex align-items-center">
                             <label class="me3" style="width: 200px;">Jumlah Pupuk <span class="text-danger">*</span></label>
-                            <input type="number" name="jumlah_pupuk" class="form-control" placeholder="(kg)" required>
+                            <input type="number" name="jumlah_pupuk" class="form-control" placeholder="(kg)" value="{{ isset($pengeluaran) ? $pengeluaran->jumlah_pupuk : old('total_biaya_pupuk') }}" required>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">

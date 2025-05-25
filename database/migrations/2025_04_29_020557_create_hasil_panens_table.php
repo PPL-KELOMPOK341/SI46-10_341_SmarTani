@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +12,7 @@ return new class extends Migration
     {
         Schema::create('hasil_panens', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_tanaman');
-            $table->string('periode');
-            $table->date('tanggal_penanaman');
-            $table->string('lokasi_lahan');
+            $table->foreignId('penanaman_id')->constrained('penanamans')->onDelete('cascade');
             $table->string('kualitas_hasil_panen');
             $table->date('tanggal_panen');
             $table->integer('harga_jual_satuan');

@@ -41,8 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/penanaman/{id}', [PenanamanController::class, 'destroy'])->name('penanaman.destroy');
 
     // Hasil Panen
-    Route::get('/hasil-panen', [HasilPanenController::class, 'create'])->name('hasil-panen.create');
-    Route::post('/hasil-panen/store', [HasilPanenController::class, 'store'])->name('hasil-panen.store');
+    Route::post('hasil-panen/search', [HasilPanenController::class, 'search'])->name('hasil-panen.search');
+    Route::resource('hasil-panen', HasilPanenController::class);
 
     // Pengeluaran
     Route::resource('pengeluaran', PengeluaranController::class);

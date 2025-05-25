@@ -28,7 +28,7 @@
 
     <div class="mt-4">
         <button class="btn btn-primary" onclick="window.print()">Print</button>
-        <a href="/" class="btn btn-danger">Back to Home</a>
+        <a href="/riwayat-penanaman" class="btn btn-danger">Back to Home</a>
     </div>
 </div>
 @endsection
