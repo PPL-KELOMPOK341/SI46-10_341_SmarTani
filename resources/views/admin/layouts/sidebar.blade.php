@@ -1,16 +1,17 @@
-<div class="sidebar position-fixed top-0 start-0 h-100">
+<div class="sidebar">
+    <a href="{{ url('/admin/beranda') }}" class="{{ request()->is('admin/beranda') ? 'bg-light fw-bold' : '' }}">
+        <i class="bi bi-house-door-fill me-2"></i> Beranda
+    </a>
 
-<div class="{{ request()->is('beranda-admin') ? 'active' : '' }}">
-    <a href="{{ url('/admin/beranda') }}">Beranda</a>
-</div>
-<div class="{{ request()->is('data-user') ? 'active' : '' }}">
-    <a href="{{ url('/admin/users') }}">Data User</a>
-</div>
-<div class="{{ request()->is('pengaduan') ? 'active' : '' }}">
-    <a href="{{ url('/pengaduan') }}">Riwayat Pengaduan</a>
-</div>
-<div class="{{ request()->is('setting-website') ? 'active' : '' }}">
-    <a href="{{ route('setting.website') }}">Setting Website</a>
-</div>
+    <a href="{{ url('/admin/users') }}" class="{{ request()->is('admin/users*') ? 'bg-light fw-bold' : '' }}">
+        <i class="bi bi-people-fill me-2"></i> Data Petani
+    </a>
 
-</div> 
+    <a href="{{ url('/pengaduan') }}" class="{{ request()->is('pengaduan*') ? 'bg-light fw-bold' : '' }}">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> Pengaduan
+    </a>
+
+    <a href="{{ route('setting.website') }}" class="{{ request()->is('admin/setting*') ? 'bg-light fw-bold' : '' }}">
+        <i class="bi bi-gear-fill me-2"></i> Setting Website
+    </a>
+</div>
