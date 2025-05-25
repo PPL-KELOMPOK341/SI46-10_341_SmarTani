@@ -3,10 +3,22 @@
 @section('content')
 <div class="container my-5">
     <div class="row shadow rounded overflow-hidden">
-        <!-- Kiri: Tulisan -->
-        <div class="col-md-5 d-flex align-items-center justify-content-center bg-primary text-white p-4">
-            <h3 class="text-center">Jika ada masalah,<br>tinggalkan pesan</h3>
+        <!-- Kiri: Tulisan + Bantuan (Rata Kiri) -->
+        <div class="col-md-5 d-flex flex-column justify-content-center text-black p-4" style="background-color: #FFFFFF;">
+            <div>
+                <h3 class="text-start fw-bold" style="color: #255946;">
+                    Jika ada masalah,<br>tinggalkan pesan
+                </h3>
+                <p class="text-start mt-3">Jika terdapat masalah, silahkan dapat mengisi formulir pada laman berikut:</p>
+                <div class="d-flex gap-3 fs-4 mt-3">
+                    <a href="#" class="text-decoration-none text-dark"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-decoration-none text-dark"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-decoration-none text-dark"><i class="bi bi-youtube"></i></a>
+                    <a href="#" class="text-decoration-none text-dark"><i class="bi bi-whatsapp"></i></a>
+                </div>
+            </div>
         </div>
+
 
         <!-- Kanan: Form -->
         <div class="col-md-7 bg-white p-4">
@@ -48,7 +60,7 @@
                     <textarea class="form-control" name="deskripsi" rows="4" required></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Kirim Pengaduan</button>
+                <button type="submit" class="btn w-100 text-white" style="background-color: #FFC14B;">Kirim Pengaduan</button>
             </form>
         </div>
     </div>
