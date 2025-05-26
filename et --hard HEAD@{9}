@@ -1,0 +1,17 @@
+[33m85e484f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgenta[m[33m, [m[1;31morigin/genta[m[33m)[m HEAD@{0}: reset: moving to HEAD
+[33m85e484f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgenta[m[33m, [m[1;31morigin/genta[m[33m)[m HEAD@{1}: reset: moving to 85e484f30bc9488b159b16b7f4467766abf8853c
+[33m85e484f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgenta[m[33m, [m[1;31morigin/genta[m[33m)[m HEAD@{2}: checkout: moving from genta to genta
+[33m85e484f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgenta[m[33m, [m[1;31morigin/genta[m[33m)[m HEAD@{3}: reset: moving to HEAD
+[33m85e484f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgenta[m[33m, [m[1;31morigin/genta[m[33m)[m HEAD@{4}: checkout: moving from main to genta
+[33m029f191[m[33m ([m[1;32mmain[m[33m)[m HEAD@{5}: checkout: moving from genta to main
+[33m85e484f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgenta[m[33m, [m[1;31morigin/genta[m[33m)[m HEAD@{6}: commit: Kelola Data User
+[33m029f191[m[33m ([m[1;32mmain[m[33m)[m HEAD@{7}: checkout: moving from genta to genta
+[33m029f191[m[33m ([m[1;32mmain[m[33m)[m HEAD@{8}: merge main: Fast-forward
+[33mcfa5f3e[m HEAD@{9}: checkout: moving from main to genta
+[33m029f191[m[33m ([m[1;32mmain[m[33m)[m HEAD@{10}: commit (merge): Form Pendapatan dan Riwayat Pendapatan
+[33me319d0b[m HEAD@{11}: pull origin main: Fast-forward
+[33m30043e0[m HEAD@{12}: checkout: moving from genta to main
+[33mcfa5f3e[m HEAD@{13}: commit: Form Pendapatan dan Riwayat Pendapatan
+[33m30043e0[m HEAD@{14}: checkout: moving from main to genta
+[33m30043e0[m HEAD@{15}: commit: Update fitur A
+[33m3dd376c[m HEAD@{16}: clone: from https://github.com/PPL-KELOMPOK341/SI46-10_341_SmarTani.git
