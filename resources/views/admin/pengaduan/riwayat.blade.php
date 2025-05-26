@@ -1,42 +1,38 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
-<div class="container my-5">
-    <h3 class="mb-4">Riwayat Pengaduan</h3>
+<div class="container">
+    <h1 class="mb-4 fw-bold ">Riwayat Pengaduan</h1>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
     {{-- Search dan Filter --}}
-    <form method="GET" class="row g-2 mb-4">
+    <form method="GET" class="mb-4 filter-form">
+    <div class="row g-2 align-items-end">
         <div class="col-md-3">
-            <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Cari nama atau kategori...">
+            <label for="search" class="form-label fw-semibold">Cari</label>
+            <input type="text" name="search" id="search" value="{{ request('search') }}" class="form-control rounded-3 shadow-sm" placeholder="Nama, Kategori, Status...">
         </div>
-        <div class="col-md-2">
-            <select name="status" class="form-select">
-                <option value="">Semua Status</option>
-                <option value="Menunggu" {{ request('status') == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
-                <option value="Dalam Proses" {{ request('status') == 'Dalam Proses' ? 'selected' : '' }}>Dalam Proses</option>
-                <option value="Selesai" {{ request('status') == 'Selesai' ? 'selected' : '' }}>Selesai</option>
-            </select>
+        <div class="col-md-3">
+            <label for="start_date" class="form-label fw-semibold">Dari Tanggal</label>
+            <input type="date" name="start_date" id="start_date" value="{{ request('start_date') }}" class="form-control rounded-3 shadow-sm">
         </div>
-        <div class="col-md-2">
-        <input type="date" name="start_date" value="{{ request('start_date') }}" class="form-control" placeholder="Dari Tanggal">
+        <div class="col-md-3">
+            <label for="end_date" class="form-label fw-semibold">Sampai Tanggal</label>
+            <input type="date" name="end_date" id="end_date" value="{{ request('end_date') }}" class="form-control rounded-3 shadow-sm">
         </div>
-        <div class="col-md-1 d-flex align-items-center justify-content-center">
-        <span class="fw-semibold">s/d</span>
+        <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-primary rounded-3 px-4 shadow-sm">
+                <i class="bi bi-search"></i> Filter
+            </button>
+            <a href="{{ route('pengaduan.riwayat') }}" class="btn btn-outline-secondary rounded-3 px-4 shadow-sm">
+                <i class="bi bi-x-circle"></i> Reset
+            </a>
         </div>
-        <div class="col-md-2">
-        <input type="date" name="end_date" value="{{ request('end_date') }}" class="form-control" placeholder="Sampai Tanggal">
-        </div>
-        <div class="col-md-1">
-            <button type="submit" class="btn btn-success w-20">Filter</button>
-        </div>
-        <div class="col-md-1">
-        <a href="{{ route('pengaduan.riwayat') }}" class="btn btn-secondary w-100">Reset</a>
-        </div>
-    </form>
+    </div>
+</form>
 
     {{-- Tabel --}}
     <div class="card shadow">

@@ -131,9 +131,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
     });
 
-    // 🟥 Route Khusus Role ADMIN
+    // 🟥 Route Khusus Role ADMIN Riwayat Pengaduan
     Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
-        Route::get('/riwayat-pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.riwayat');
+        Route::get('/admin/riwayat-pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.riwayat');
         Route::get('/pengaduan/{id}', [PengaduanController::class, 'show'])->name('pengaduan.show');
         Route::get('/pengaduan/{id}/edit', [PengaduanController::class, 'edit'])->name('pengaduan.edit');
         Route::put('/pengaduan/{id}', [PengaduanController::class, 'update'])->name('pengaduan.update');

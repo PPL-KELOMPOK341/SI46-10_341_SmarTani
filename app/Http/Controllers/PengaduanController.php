@@ -33,7 +33,7 @@ class PengaduanController extends Controller
         // Ambil data terbaru dan paginasi
         $pengaduans = $query->latest()->paginate(10)->withQueryString();
 
-        return view('pengaduan.riwayat', compact('pengaduans'));
+        return view('admin.pengaduan.riwayat', compact('pengaduans'));
     }
 
     /**
