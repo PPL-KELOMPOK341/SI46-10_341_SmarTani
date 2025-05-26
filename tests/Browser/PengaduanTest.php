@@ -25,9 +25,25 @@ class PengaduanTest extends DuskTestCase
                 ->assertPathIs('/pengaduan')
                 ->type('telepon', '081234567892')
                 ->select('kategori', 'Teknis')
-                ->type('deskripsi', 'Input data gagal')
+                ->type('deskripsi', 'Data aneh')
                 ->press('Kirim Pengaduan')
                 ->assertSee('Pengaduan berhasil dikirim');
+        });
+    }
+
+    /** @test */
+    public function form_pengaduan_kosong()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/pengaduan')
+                ->click('.menu-icon')
+                ->pause(1000)
+                ->clickLink('Form Pengaduan')
+                ->assertPathIs('/pengaduan')
+                // Tidak mengisi telepon, kategori, dan deskripsi
+                ->press('Kirim Pengaduan')
+                // Pastikan pesan validasi muncul (ganti sesuai pesan validasi aplikasi Anda)
+                ->assertDontSee('Pengaduan berhasil dikirim');
         });
     }
 }
