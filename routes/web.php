@@ -20,6 +20,9 @@ use App\Http\Controllers\Admin\UserController;
 // ============================
 // Default Route
 // ============================
+use App\Http\Controllers\PengaduanController;
+use App\Http\Middleware\RoleMiddleware;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -68,12 +71,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [BeritaController::class, 'index'])->name('dashboard');
     Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
+
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    // Berita
+
+    // Dashboard & Berita
     Route::get('/dashboard', [BeritaController::class, 'index'])->name('dashboard');
     Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
@@ -101,11 +105,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/riwayat_pendapatan', [PendapatanController::class, 'index'])->name('riwayat_pendapatan.index');
     Route::get('/pendapatan/{id}', [PendapatanController::class, 'show'])->name('pendapatan.show');
     Route::get('/pendapatan/{id}/print', [PendapatanController::class, 'print'])->name('pendapatan.print');
-
     Route::get('/pendapatan/{id}/edit', [PendapatanController::class, 'edit'])->name('pendapatan.edit');
     Route::put('/pendapatan/{id}', [PendapatanController::class, 'update'])->name('pendapatan.update');
     Route::delete('/pendapatan/{id}', [PendapatanController::class, 'destroy'])->name('pendapatan.destroy');
-    
+
+    // Halaman tambahan
     Route::get('/form-pencatatan', function () {
         return view('form-pencatatan');
     })->name('form-pencatatan');
@@ -121,6 +125,20 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
 
+    // 🟦 Route Khusus Role USER
+    Route::middleware([RoleMiddleware::class . ':user'])->group(function () {
+        Route::get('/pengaduan', [PengaduanController::class, 'create'])->name('pengaduan.create');
+        Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
+    });
+
+    // 🟥 Route Khusus Role ADMIN
+    Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+        Route::get('/riwayat-pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.riwayat');
+        Route::get('/pengaduan/{id}', [PengaduanController::class, 'show'])->name('pengaduan.show');
+        Route::get('/pengaduan/{id}/edit', [PengaduanController::class, 'edit'])->name('pengaduan.edit');
+        Route::put('/pengaduan/{id}', [PengaduanController::class, 'update'])->name('pengaduan.update');
+        Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan.destroy');
+    });
 });
 
 require __DIR__.'/auth.php';
