@@ -5,7 +5,6 @@ namespace Tests;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Illuminate\Support\Collection;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use PHPUnit\Framework\Attributes\BeforeClass;
 
@@ -27,20 +26,21 @@ abstract class DuskTestCase extends BaseTestCase
      */
     protected function driver(): RemoteWebDriver
     {
-        $arguments = collect([
+        // Inisialisasi Chrome Options
+        $options = (new ChromeOptions)->addArguments([
             '--start-maximized',
             '--disable-search-engine-choice-screen',
             '--disable-smooth-scrolling',
         ]);
 
+        // Tambahkan headless mode jika tidak dinonaktifkan
         if (! $this->hasHeadlessDisabled()) {
-            $arguments = $arguments->merge([
+            $options->addArguments([
                 '--disable-gpu',
-                //'--headless=new', // Atau '--headless' jika tidak didukung
+                //'--headless=new', // atau '--headless' jika dibutuhkan
+                //'--headless',
             ]);
         }
-
-        $options = (new ChromeOptions)->addArguments($arguments->all());
 
         return RemoteWebDriver::create(
             $_ENV['DUSK_DRIVER_URL'] ?? env('DUSK_DRIVER_URL') ?? 'http://localhost:9515',
@@ -48,5 +48,5 @@ abstract class DuskTestCase extends BaseTestCase
                 ChromeOptions::CAPABILITY, $options
             )
         );
-    }    
+    }
 }

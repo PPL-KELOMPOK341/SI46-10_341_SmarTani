@@ -30,7 +30,10 @@
                 </ul>
             </div>
             <div class="col-md-3 footer-logo mb-3 text-center">
-                <img src="{{ asset('images/smartani_logo2.png') }}" alt="Logo">
+                <!-- <img src="{{ asset('images/smartani_logo2.png') }}" alt="Logo"> -->
+                @if(get_setting('site_logo'))
+                <img src="{{ asset(get_setting('site_logo')) }}" alt="Logo" style="height: 60px;">
+                @endif
             </div>
         </div>
     </div>

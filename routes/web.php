@@ -12,6 +12,14 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PenanamanController;
 use App\Http\Controllers\HasilPanenController;
+use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\SettingWebsiteController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserController;
+
+// ============================
+// Default Route
+// ============================
 use App\Http\Controllers\PengaduanController;
 use App\Http\Middleware\RoleMiddleware;
 
@@ -19,7 +27,50 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware('auth')->group(function () {
+// ============================
+// Admin Authentication Routes
+// ============================
+Route::middleware('guest')->group(function () {
+    Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+});
+
+// Admin Logout (terpisah dari group karena redirect bisa custom)
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+
+// ============================
+// Admin Protected Routes
+// ============================
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    // Dashboard Admin
+    Route::get('/beranda', [AdminController::class, 'index'])->name('admin.beranda');
+
+    // Setting Website
+    Route::get('/setting-website', [SettingWebsiteController::class, 'index'])->name('setting.website');
+    Route::post('/setting-website', [SettingWebsiteController::class, 'store']);
+    Route::post('/setting-website', [SettingWebsiteController::class, 'store'])->name('setting.website.store');
+
+    // Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('admin.pengaduan');
+    // Route::get('/data-user', [UserController::class, 'index'])->name('admin.data-user');
+});
+
+// ============================
+// User Authentication Routes
+// ============================
+Route::middleware('guest')->group(function () {
+    Route::get('/login', function () {
+        return view('auth.login');
+    })->name('login');
+});
+
+// ============================
+// User Protected Routes
+// ============================
+Route::middleware(['auth'])->group(function () {
+    // Dashboard Berita
+    Route::get('/dashboard', [BeritaController::class, 'index'])->name('dashboard');
+    Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
+
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -62,6 +113,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/form-pencatatan', function () {
         return view('form-pencatatan');
     })->name('form-pencatatan');
+
+    
+
+      // User Management
+    Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/admin/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
 
     // 🟦 Route Khusus Role USER
     Route::middleware([RoleMiddleware::class . ':user'])->group(function () {
