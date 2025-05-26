@@ -23,6 +23,12 @@
         </div>
         <div class="profile d-flex align-items-center gap-2">
             <i class="fas fa-user-circle"></i>
+
+            @if(Auth::check() && Auth::user()->is_admin)
+            <li>
+                <a href="{{ route('users.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kelola Data User</a>
+            </li>
+            @endif
             <span>{{ Auth::user()->name }}</span>
         </div>
     </header>

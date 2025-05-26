@@ -16,13 +16,14 @@ use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\SettingWebsiteController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\UserController as UserControllerAlias;
+use App\Http\Controllers\PengaduanController;
+use App\Http\Middleware\RoleMiddleware;
 
 // ============================
 // Default Route
 // ============================
-use App\Http\Controllers\PengaduanController;
-use App\Http\Middleware\RoleMiddleware;
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -35,20 +36,27 @@ Route::middleware('guest')->group(function () {
     Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
 });
 
-// Admin Logout (terpisah dari group karena redirect bisa custom)
+// Admin Logout (separate from group for custom redirect)
 Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
 // ============================
 // Admin Protected Routes
 // ============================
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
     // Dashboard Admin
     Route::get('/beranda', [AdminController::class, 'index'])->name('admin.beranda');
 
     // Setting Website
     Route::get('/setting-website', [SettingWebsiteController::class, 'index'])->name('setting.website');
-    Route::post('/setting-website', [SettingWebsiteController::class, 'store']);
     Route::post('/setting-website', [SettingWebsiteController::class, 'store'])->name('setting.website.store');
+
+    // User Management
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
     // Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('admin.pengaduan');
     // Route::get('/data-user', [UserController::class, 'index'])->name('admin.data-user');
@@ -71,15 +79,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [BeritaController::class, 'index'])->name('dashboard');
     Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
-
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    // Dashboard & Berita
-    Route::get('/dashboard', [BeritaController::class, 'index'])->name('dashboard');
-    Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
     // Penanaman
     Route::get('/form-penanaman', [PenanamanController::class, 'create'])->name('penanaman.create');
@@ -113,17 +116,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/form-pencatatan', function () {
         return view('form-pencatatan');
     })->name('form-pencatatan');
-
-    
-
-      // User Management
-    Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/admin/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
-    Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-
 
     // 🟦 Route Khusus Role USER
     Route::middleware([RoleMiddleware::class . ':user'])->group(function () {
