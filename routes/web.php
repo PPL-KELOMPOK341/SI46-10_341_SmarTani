@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendapatanController;
 use App\Http\Controllers\RiwayatPengeluaranController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RiwayatPendapatanController;
 use App\Http\Controllers\GrafikController;
 use App\Http\Controllers\PengeluaranController;
@@ -24,7 +25,7 @@ use App\Http\Controllers\HasilPanenController;
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     // Berita
-    Route::get('/dashboard', [BeritaController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
     // Penanaman
@@ -61,7 +62,7 @@ use App\Http\Controllers\HasilPanenController;
     })->name('form-pencatatan');
 
     
-Route::get('/berita', function () {
+    Route::get('/berita', function () {
         return redirect()->route('berita.index');
     });
     
@@ -69,14 +70,11 @@ Route::get('/berita', function () {
         'berita' => 'berita'
     ]);
     
-    Route::get('/berita/{id}/detail', [BeritaController::class, 'showDetailAdmin'])->name('berita.detail');
-    //Route::get('/berita/{id}/detail-petani', [BeritaController::class, 'showDetailPetani'])->name('berita.detail');
+    Route::get('/berita/{id}/detail-admin', [BeritaController::class, 'showDetailAdmin'])->name('berita.detail');
+    //Route::get('/berita/{id}/detail-admin', [BeritaController::class, 'showDetailAdmin'])->name('berita.show-admin');
+    Route::get('/berita/{id}/detail-petani', [BeritaController::class, 'showDetailPetani'])->name('berita.show-petani');
 
   
 });
 
 require __DIR__.'/auth.php';
-
-
-
-

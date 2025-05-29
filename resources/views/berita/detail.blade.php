@@ -29,12 +29,18 @@
             </div>
         </div>
 
-        <div class="d-flex left-content-end gap-2">
-            <a href="{{ route('berita.edit', $berita->id) }}" class="btn btn-primary">Update</a>
-            <form action="{{ route('berita.destroy', $berita->id) }}" method="POST">
-                @csrf @method('DELETE')
-                <button type="submit" class="btn btn-danger">Hapus</button>
-            </form>
+        <div class="d-flex justify-content-between mt-4">
+            <!-- Tombol Kembali -->
+            <a href="{{ route('berita.index') }}" class="btn btn-secondary">Kembali</a>
+
+            <!-- Tombol Update dan Hapus -->
+            <div class="d-flex gap-2">
+                <a href="{{ route('berita.edit', $berita->id) }}" class="btn btn-primary">Update</a>
+                <form action="{{ route('berita.destroy', $berita->id) }}" method="POST">
+                    @csrf @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

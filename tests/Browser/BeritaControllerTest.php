@@ -18,11 +18,11 @@ class BeritaControllerTest extends DuskTestCase
             $browser->visit('/login')
                 ->type('email', 'admin@gmail.com')
                 ->type('password', '12345678')
-                ->press('LOG IN')
+                ->press('Masuk')
                 ->pause(500)
                 ->assertPathIs('/dashboard')
 
-                ->assertSee('Cabe lagi mahal')
+                ->assertSee('Berita Terkini')
                 ->clickLink('Cabe lagi mahal');
                 
         });
@@ -38,7 +38,7 @@ class BeritaControllerTest extends DuskTestCase
             $browser->visit('/login')
                 ->type('email', 'admin@gmail.com')
                 ->type('password', '12345678')
-                ->press('LOG IN')
+                ->press('Masuk')
                 ->pause(500)
                 ->assertPathIs('/dashboard')
                 
@@ -56,6 +56,7 @@ class BeritaControllerTest extends DuskTestCase
                 ->assertSee('Cabe lagi mahal');
         });
     }
+
 /**
  * @group tanggalberita-test
  * Test user dapat memfilter berita berdasarkan rentang tanggal.
@@ -66,18 +67,18 @@ public function test_user_filter_berita_by_tanggal()
         $browser->visit('/login')
             ->type('email', 'admin@gmail.com')
             ->type('password', '12345678')
-            ->press('LOG IN')
+            ->press('Masuk')
             ->pause(500)
             ->assertPathIs('/dashboard')
 
             ->visit('/dashboard')
 
             // Isi form filter tanggal
-            ->type('dari', '01-06-2024')  // <-- format harus benar
-            ->type('sampai', '03-06-2024')
+            ->type('dari', '01-05-2025')  // <-- format harus benar
+            ->type('sampai', '08-05-2025')
 
             // Klik tombol search dengan klik tombol submit
-            ->click('button[type="submit"]') // <-- BUKAN press('Search')
+            ->click('button[type="submit"]') //
             ->pause(1000) // beri jeda supaya halaman reload
 
             // Validasi hasil

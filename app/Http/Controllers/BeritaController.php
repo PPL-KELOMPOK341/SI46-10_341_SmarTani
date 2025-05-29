@@ -10,17 +10,38 @@ class BeritaController extends Controller
 {
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        $query = Berita::query();
+
+        // Filter berdasarkan tanggal
+        if ($request->filled('dari') && $request->filled('sampai')) {
+            $query->whereBetween('tanggal', [$request->dari, $request->sampai]);
+        }
+
+        // Filter berdasarkan keyword (judul atau konten)
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('judul', 'like', '%' . $request->search . '%')
+                  ->orWhere('konten', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // Sorting default by 'id'
         $sort = $request->input('sort', 'id');
+        $query->orderBy($sort, 'desc');
 
-        $beritas = Berita::when($search, function($query) use ($search) {
-                return $query->where('judul', 'like', "%{$search}%")
-                             ->orWhere('konten', 'like', "%{$search}%");
-            })
-            ->orderBy($sort)
-            ->paginate(10);
+        // Paginate
+        $beritas = $query->paginate(10)->withQueryString();
 
-        return view('berita.index', compact('beritas', 'search', 'sort'));
+        // Flash message jika cancel hapus
+        if ($request->has('cancel') && $request->cancel === 'true') {
+            session()->flash('cancel_message', 'Berita tidak jadi dihapus.');
+        }
+
+        return view('berita.index', [
+            'beritas' => $beritas,
+            'search' => $request->search,
+            'sort' => $sort
+        ]);
     }
 
     public function create()
@@ -71,6 +92,7 @@ class BeritaController extends Controller
             'tanggal' => 'required|date'
         ]);
 
+        // Handle gambar
         if ($request->hasFile('gambar')) {
             if ($berita->gambar) {
                 Storage::disk('public')->delete($berita->gambar);
@@ -102,10 +124,9 @@ class BeritaController extends Controller
         return view('berita.detail', compact('berita'));
     }
 
-    //public function showDetailPetani($id)
-    //{
-        //$berita = Berita::findOrFail($id);
-        //return view('berita.detail-petani', compact('berita'));
-    //}    
-
+    public function showDetailPetani($id)
+    {
+        $berita = Berita::findOrFail($id);
+        return view('berita.show-petani', compact('berita'));
+    }
 }
