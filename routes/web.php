@@ -70,8 +70,9 @@ use App\Http\Controllers\HasilPanenController;
         'berita' => 'berita'
     ]);
     
-    Route::get('/berita/{id}/detail', [BeritaController::class, 'showDetailAdmin'])->name('berita.detail');
-    //Route::get('/berita/{id}/detail-petani', [BeritaController::class, 'showDetailPetani'])->name('berita.detail');
+    Route::get('/berita/{id}/detail-admin', [BeritaController::class, 'showDetailAdmin'])->name('berita.detail');
+    //Route::get('/berita/{id}/detail-admin', [BeritaController::class, 'showDetailAdmin'])->name('berita.show-admin');
+    Route::get('/berita/{id}/detail-petani', [BeritaController::class, 'showDetailPetani'])->name('berita.show-petani');
 
   
 });

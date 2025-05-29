@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-4">
                 @if($berita->gambar)
-                    <img src="{{ asset('images/berita/' . $berita->gambar) }}" class="img-fluid rounded">
+                    <img src="{{ asset('storage/' . $berita->gambar) }}" class="img-fluid rounded">
                 @else
                     <div class="alert alert-info">Tidak ada gambar</div>
                 @endif

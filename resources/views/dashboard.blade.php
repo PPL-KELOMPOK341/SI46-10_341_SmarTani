@@ -39,7 +39,7 @@
         <div class="row justify-content-center">
     @forelse ($beritas as $berita)
         <div class="col-md-4 mb-4 d-flex">
-            <a href="{{ route('berita.show', $berita->id) }}" class="text-decoration-none text-dark w-100">
+            <a href="{{ route('berita.show-petani', $berita->id) }}" class="text-decoration-none text-dark w-100">
                 <div class="card border-0 shadow-sm h-100">
                     @if(!empty($berita['gambar']))
                         <img src="{{ asset('storage/' . $berita->gambar) }}" class="card-img-top" alt="Gambar Berita" style="object-fit: cover; height: 200px;">

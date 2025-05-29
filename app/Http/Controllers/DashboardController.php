@@ -11,20 +11,30 @@ class DashboardController extends Controller
     {
         $query = Berita::query();
 
-        // Filter pencarian
-        if ($request->has('search')) {
-            $search = $request->search;
-            $query->where('judul', 'like', '%' . $search . '%')
-                  ->orWhere('konten', 'like', '%' . $search . '%');
+        // Pencarian judul atau isi
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%')
+                ->orWhere('isi', 'like', '%' . $search . '%');
+            });
         }
 
-        // Filter tanggal
-        if ($request->has('tanggal')) {
-            $query->whereDate('tanggal', $request->tanggal);
+         // Filter berdasarkan rentang tanggal
+        if ($request->filled('dari')) {
+            $query->whereDate('tanggal', '>=', $request->input('dari'));
         }
 
-        // Urutkan berdasarkan tanggal terbaru
-        $query->orderBy('tanggal', 'desc');
+        if ($request->filled('sampai')) {
+            $query->whereDate('tanggal', '<=', $request->input('sampai'));
+        }
+
+        // Urutkan berdasarkan tanggal
+        if ($request->input('sort') === 'latest') {
+            $query->orderBy('tanggal', 'desc');
+        } elseif ($request->input('sort') === 'oldest') {
+            $query->orderBy('tanggal', 'asc');
+        }
 
         // Pagination
         $beritas = $query->paginate(6);

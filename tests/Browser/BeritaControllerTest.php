@@ -18,12 +18,12 @@ class BeritaControllerTest extends DuskTestCase
             $browser->visit('/login')
                 ->type('email', 'admin@gmail.com')
                 ->type('password', '12345678')
-                ->press('LOG IN')
+                ->press('Masuk')
                 ->pause(500)
                 ->assertPathIs('/dashboard')
 
-                ->assertSee('Cabe lagi mahal')
-                ->clickLink('Cabe lagi mahal');
+                ->assertSee('Berita Terkini')
+                ->clickLink('Empon-empon');
                 
         });
     }
@@ -57,7 +57,7 @@ class BeritaControllerTest extends DuskTestCase
         });
     }
 /**
- * @group tanggalberita-test
+ * @group tanggaldashboard-test
  * Test user dapat memfilter berita berdasarkan rentang tanggal.
  */
 public function test_user_filter_berita_by_tanggal()

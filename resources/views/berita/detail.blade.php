@@ -31,7 +31,7 @@
 
         <div class="d-flex left-content-end gap-2">
             <a href="{{ route('berita.edit', $berita->id) }}" class="btn btn-primary">Update</a>
-            <form action="{{ route('berita.destroy', $berita->id) }}" method="POST">
+            <form action="{{ route('berita.destroy', $berita->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                 @csrf @method('DELETE')
                 <button type="submit" class="btn btn-danger">Hapus</button>
             </form>
