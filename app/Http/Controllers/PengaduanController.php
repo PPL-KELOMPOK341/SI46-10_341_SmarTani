@@ -51,9 +51,6 @@ class PengaduanController extends Controller
     {
         $request->validate([
             'user_id'   => 'required|exists:users,id',
-            'nama'      => 'required|string',
-            'email'     => 'required|email',
-            'telepon'   => 'required|string',
             'kategori'  => 'required|string',
             'deskripsi' => 'required|string',
         ]);
