@@ -51,7 +51,7 @@
                     <tbody>
                         @forelse($pengaduans as $key => $item)
                         <tr>
-                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->user->name }}</td>
                             <td>{{ $item->kategori }}</td>
                             <td>{{ $item->created_at->format('d-m-Y') }}</td>
                             <td>
