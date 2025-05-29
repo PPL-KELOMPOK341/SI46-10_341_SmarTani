@@ -7,8 +7,8 @@
         <a href="{{ route('pengeluaran.index') }}"><i class="fas fa-receipt me-2"></i> Riwayat Pengeluaran</a>
         <a href="{{ route('hasil-panen.index') }}"><i class="fas fa-wheat-alt me-2"></i> Riwayat Hasil Panen</a>
         <a href="{{ route('riwayat_pendapatan.index') }}"><i class="fas fa-money-bill-wave me-2"></i> Riwayat Pendapatan</a>
-        <a href="#"><i class="fas fa-chart-line me-2"></i> Grafik</a>
-        <a href="#"><i class="fas fa-comment-alt me-2"></i> Form Pengaduan</a>
+        <a href="{{ route('grafik.index') }}"><i class="fas fa-chart-line me-2"></i> Grafik</a>
+        <a href="{{ route('pengaduan.create') }}"><i class="fas fa-comment-alt me-2"></i> Form Pengaduan</a>
         <form method="POST" action="{{ route('logout') }}" class="d-inline">
             @csrf
             <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">

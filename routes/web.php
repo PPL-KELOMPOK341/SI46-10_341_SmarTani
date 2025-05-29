@@ -9,6 +9,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\RiwayatPendapatanController;
 use App\Http\Controllers\GrafikController;
 use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PenanamanController;
 use App\Http\Controllers\HasilPanenController;
@@ -56,9 +57,16 @@ use App\Http\Controllers\HasilPanenController;
     Route::put('/pendapatan/{id}', [PendapatanController::class, 'update'])->name('pendapatan.update');
     Route::delete('/pendapatan/{id}', [PendapatanController::class, 'destroy'])->name('pendapatan.destroy');
     
+    // Pengaduan 
+    Route::get('/pengaduan', [PengaduanController::class, 'create'])->name('pengaduan.create');
+    Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
+
     Route::get('/form-pencatatan', function () {
         return view('form-pencatatan');
     })->name('form-pencatatan');
+
+    Route::get('/grafik-pemasukan-pengeluaran', [\App\Http\Controllers\GrafikController::class, 'pemasukanPengeluaran'])->name('grafik.index');
+
 
     
 });
