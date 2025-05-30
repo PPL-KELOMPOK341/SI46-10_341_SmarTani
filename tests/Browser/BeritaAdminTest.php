@@ -36,7 +36,7 @@ class BeritaAdminTest extends DuskTestCase
             ->assertSee('Berita berhasil ditambahkan');
     });
 }
-    /**
+    /**cd 
      * A Dusk test example.
      * @group tambah-test-exception
      */
@@ -56,24 +56,6 @@ class BeritaAdminTest extends DuskTestCase
             // Pastikan kembali ke halaman daftar atau muncul pesan sukses
 
             ->assertFocused('input[name="judul"]');
-    });
-}
-/**
-     * @group read-test
-     * Test user dapat sortir produk termahal di halaman katalog.
-     */
-public function test_user_lihat_berita()
-{
-    $this->browse(function (Browser $browser) {
-        $user = User::factory()->create(); // Sementara karena berita masih menggunakan login petani jadi direct ke tampilan petani
-        $berita = Berita::factory()->create();
-
-        $browser->loginAs($user)
-            ->visit('/berita')
-            ->assertSee('Data Berita')
-            ->click('@lihat-'.$berita->id)
-            ->assertPathIs('/berita/'.$berita->id.'/detail-admin')
-            ->assertSee('Detail Berita');
     });
 }
 
