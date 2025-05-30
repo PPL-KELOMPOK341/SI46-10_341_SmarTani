@@ -9,24 +9,80 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\RiwayatPendapatanController;
 use App\Http\Controllers\GrafikController;
 use App\Http\Controllers\PengeluaranController;
-use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PenanamanController;
 use App\Http\Controllers\HasilPanenController;
+use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\SettingWebsiteController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\UserController as UserControllerAlias;
+use App\Http\Controllers\PengaduanController;
+use App\Http\Middleware\RoleMiddleware;
 
-    Route::get('/', function () {
+// ============================
+// Default Route
+// ============================
+Route::get('/', function () {
     return view('welcome');
 });
 
-    Route::middleware('auth')->group(function () {
+// ============================
+// Admin Authentication Routes
+// ============================
+Route::middleware('guest')->group(function () {
+    Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+});
+
+// Admin Logout (separate from group for custom redirect)
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+
+// ============================
+// Admin Protected Routes
+// ============================
+Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
+    // Dashboard Admin
+    Route::get('/beranda', [AdminController::class, 'index'])->name('admin.beranda');
+
+    // Setting Website
+    Route::get('/setting-website', [SettingWebsiteController::class, 'index'])->name('setting.website');
+    Route::post('/setting-website', [SettingWebsiteController::class, 'store'])->name('setting.website.store');
+
+    // User Management
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+    // Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('admin.pengaduan');
+    // Route::get('/data-user', [UserController::class, 'index'])->name('admin.data-user');
+});
+
+// ============================
+// User Authentication Routes
+// ============================
+Route::middleware('guest')->group(function () {
+    Route::get('/login', function () {
+        return view('auth.login');
+    })->name('login');
+});
+
+// ============================
+// User Protected Routes
+// ============================
+Route::middleware(['auth'])->group(function () {
+    // Dashboard Berita
+    Route::get('/dashboard', [BeritaController::class, 'index'])->name('dashboard');
+    Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
+
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    // Berita
-    Route::get('/dashboard', [BeritaController::class, 'index'])->name('dashboard');
-    Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
     // Penanaman
     Route::get('/form-penanaman', [PenanamanController::class, 'create'])->name('penanaman.create');
@@ -52,7 +108,6 @@ use App\Http\Controllers\HasilPanenController;
     Route::get('/riwayat_pendapatan', [PendapatanController::class, 'index'])->name('riwayat_pendapatan.index');
     Route::get('/pendapatan/{id}', [PendapatanController::class, 'show'])->name('pendapatan.show');
     Route::get('/pendapatan/{id}/print', [PendapatanController::class, 'print'])->name('pendapatan.print');
-
     Route::get('/pendapatan/{id}/edit', [PendapatanController::class, 'edit'])->name('pendapatan.edit');
     Route::put('/pendapatan/{id}', [PendapatanController::class, 'update'])->name('pendapatan.update');
     Route::delete('/pendapatan/{id}', [PendapatanController::class, 'destroy'])->name('pendapatan.destroy');
@@ -61,6 +116,8 @@ use App\Http\Controllers\HasilPanenController;
     Route::get('/pengaduan', [PengaduanController::class, 'create'])->name('pengaduan.create');
     Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
 
+
+    // Halaman tambahan
     Route::get('/form-pencatatan', function () {
         return view('form-pencatatan');
     })->name('form-pencatatan');
@@ -69,6 +126,20 @@ use App\Http\Controllers\HasilPanenController;
 
 
     
+    // 🟦 Route Khusus Role USER
+    Route::middleware([RoleMiddleware::class . ':user'])->group(function () {
+        Route::get('/pengaduan', [PengaduanController::class, 'create'])->name('pengaduan.create');
+        Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
+    });
+
+    // 🟥 Route Khusus Role ADMIN
+    Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+        Route::get('/riwayat-pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.riwayat');
+        Route::get('/pengaduan/{id}', [PengaduanController::class, 'show'])->name('pengaduan.show');
+        Route::get('/pengaduan/{id}/edit', [PengaduanController::class, 'edit'])->name('pengaduan.edit');
+        Route::put('/pengaduan/{id}', [PengaduanController::class, 'update'])->name('pengaduan.update');
+        Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan.destroy');
+    });
 });
 
 require __DIR__.'/auth.php';
