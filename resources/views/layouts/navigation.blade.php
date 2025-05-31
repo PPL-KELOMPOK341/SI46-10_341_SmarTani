@@ -7,7 +7,7 @@
         <a href="{{ route('pengeluaran.index') }}"><i class="fas fa-receipt me-2"></i> Riwayat Pengeluaran</a>
         <a href="{{ route('hasil-panen.index') }}"><i class="fas fa-wheat-alt me-2"></i> Riwayat Hasil Panen</a>
         <a href="{{ route('riwayat_pendapatan.index') }}"><i class="fas fa-money-bill-wave me-2"></i> Riwayat Pendapatan</a>
-        <a href="#"><i class="fas fa-chart-line me-2"></i> Grafik</a>
+        <a href="{{ route('grafik.index') }}"><i class="fas fa-chart-line me-2"></i> Grafik</a>
         <a href="{{ route('pengaduan.create') }}"><i class="fas fa-comment-alt me-2"></i> Form Pengaduan</a>
         <form method="POST" action="{{ route('logout') }}" class="d-inline">
             @csrf
@@ -23,6 +23,12 @@
         </div>
         <div class="profile d-flex align-items-center gap-2">
             <i class="fas fa-user-circle"></i>
+
+            @if(Auth::check() && Auth::user()->is_admin)
+            <li>
+                <a href="{{ route('users.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kelola Data User</a>
+            </li>
+            @endif
             <span>{{ Auth::user()->name }}</span>
         </div>
     </header>
