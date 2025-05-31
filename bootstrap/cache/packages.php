@@ -1,13 +1,13 @@
 <?php return array (
-  'akaunting/setting' => 
+  'akaunting/laravel-setting' => 
   array (
-    'providers' => 
-    array (
-      0 => 'Akaunting\\Setting\\Provider',
-    ),
     'aliases' => 
     array (
       'Setting' => 'Akaunting\\Setting\\Facade',
+    ),
+    'providers' => 
+    array (
+      0 => 'Akaunting\\Setting\\Provider',
     ),
   ),
   'laravel/breeze' => 
