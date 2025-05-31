@@ -14,7 +14,7 @@ class BeritaSeeder extends Seeder
             [
                 'judul' => 'Harga Cabai Meningkat di Bandung',
                 'konten' => 'Harga cabai mengalami kenaikan yang signifikan di daerah Bandung. Hal ini disebabkan oleh cuaca ekstrem yang mempengaruhi hasil panen. Para petani mengalami kesulitan dalam mempertahankan produksi cabai karena curah hujan yang tinggi.',
-                'gambar' => 'images/berita/cabai-bandung.jpg',
+                'gambar' => 'public\storage\berita-images\cabai-bandung.jpg',
                 'tanggal' => '2024-06-03',
                 'created_at' => now(),
                 'updated_at' => now(),
