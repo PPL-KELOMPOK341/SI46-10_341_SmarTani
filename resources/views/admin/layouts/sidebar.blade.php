@@ -19,7 +19,6 @@
         <i class="bi bi-gear-fill me-2"></i> Setting Website
     </a>
 
-<<<<<<< HEAD
     <!-- Logout sebagai link agar tampilannya sama -->
     <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
        class="{{ request()->is('logout') ? 'bg-light fw-bold' : '' }} mt-3 d-block">
@@ -29,12 +28,10 @@
     <!-- Form logout tersembunyi -->
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
-=======
     <form method="POST" action="{{ route('admin.logout') }}" class="mt-2">
         @csrf
         <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="d-block text-danger">
             <i class="bi bi-box-arrow-right me-2"></i> Logout
         </a>
->>>>>>> 2880eebfc1f84f9d6b5d36fe93e7aac8069a9bdf
     </form>
 </div>
