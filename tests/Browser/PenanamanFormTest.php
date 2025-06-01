@@ -47,7 +47,7 @@ class PenanamanFormTest extends DuskTestCase
             $browser->assertPathIs('/form-penanaman/hasil/'.$penanaman->id);
 
             $browser->visit('/riwayat-penanaman')
-                    ->assertSee('Tabel Riwayat Penanaman');
+                    ->assertSee('Riwayat Penanaman');
 
         });
     }
@@ -69,7 +69,7 @@ class PenanamanFormTest extends DuskTestCase
 
             $browser->loginAs($user)
                     ->visit('/riwayat-penanaman')
-                    ->clickLink('Lihat Detail') // pastikan ini nama tombol/link di tabel
+                    ->clickLink('Detail') // pastikan ini nama tombol/link di tabel
                     ->assertPathIs('/riwayat-penanaman/detail/'.$penanaman->id)
                     ->assertSee($penanaman->nama_tanaman)
                     ->clickLink('Ubah')
@@ -101,7 +101,7 @@ class PenanamanFormTest extends DuskTestCase
 
             $browser->loginAs($user)
                     ->visit('/riwayat-penanaman')
-                    ->clickLink('Lihat Detail')
+                    ->clickLink('Detail')
                     ->assertPathIs('/riwayat-penanaman/detail/'.$penanaman->id)
                     ->press('Hapus')
                     ->acceptDialog();

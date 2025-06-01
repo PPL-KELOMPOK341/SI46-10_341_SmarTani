@@ -18,7 +18,7 @@ class BeritaControllerTest extends DuskTestCase
             $browser->visit('/login')
                 ->type('email', 'admin@gmail.com')
                 ->type('password', '12345678')
-                ->press('LOG IN')
+                ->press('Masuk')
                 ->pause(500)
                 ->assertPathIs('/dashboard')
 
@@ -38,7 +38,7 @@ class BeritaControllerTest extends DuskTestCase
             $browser->visit('/login')
                 ->type('email', 'admin@gmail.com')
                 ->type('password', '12345678')
-                ->press('LOG IN')
+                ->press('Masuk')
                 ->pause(500)
                 ->assertPathIs('/dashboard')
                 
@@ -66,7 +66,7 @@ public function test_user_filter_berita_by_tanggal()
         $browser->visit('/login')
             ->type('email', 'admin@gmail.com')
             ->type('password', '12345678')
-            ->press('LOG IN')
+            ->press('Masuk')
             ->pause(500)
             ->assertPathIs('/dashboard')
 

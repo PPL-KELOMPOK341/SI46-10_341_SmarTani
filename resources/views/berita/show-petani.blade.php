@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card shadow-sm">
                 @if($berita->gambar)
-                    <img src="{{ asset($berita->gambar) }}" class="card-img-top" alt="{{ $berita->judul }}">
+                    <img src="{{ asset('storage/' . $berita->gambar) }}" class="card-img-top img-fluid rounded" style="max-height: 300px; object-fit: cover;" alt="{{ $berita->judul }}">
                 @endif
                 <div class="card-body">
                     <h2 class="card-title mb-3">{{ $berita->judul }}</h2>

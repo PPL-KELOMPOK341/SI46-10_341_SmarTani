@@ -11,7 +11,7 @@ class RiwayatPendapatanTest extends DuskTestCase
     public function user_bisa_melihat_riwayat_pendapatan()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(6) // pastikan ID 1 adalah user yang valid
+            $browser->loginAs(3) // pastikan ID 1 adalah user yang valid
                     ->visit(route('riwayat_pendapatan.index'))
                     ->assertSee('Riwayat Pendapatan')
                     ->assertSee('Nama Tanaman')
@@ -24,7 +24,7 @@ class RiwayatPendapatanTest extends DuskTestCase
     public function user_bisa_mencari_pendapatan()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(6)
+            $browser->loginAs(3)
                     ->visit(route('riwayat_pendapatan.index'))
                     ->type('search', 'Penjualan') // ganti "Jagung" sesuai data yang memang ada
                     ->press('Cari')
@@ -37,7 +37,7 @@ class RiwayatPendapatanTest extends DuskTestCase
     public function user_bisa_sortir_tanggal_sumber_total()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(6)
+            $browser->loginAs(3)
                     ->visit(route('riwayat_pendapatan.index'))
 
                     // Sortir Tanggal
@@ -58,9 +58,9 @@ class RiwayatPendapatanTest extends DuskTestCase
     public function user_bisa_melihat_detail_pendapatan()
     {
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(6)
+            $browser->loginAs(3)
                     ->visit(route('riwayat_pendapatan.index'))
-                    ->clickLink('Lihat Detail')
+                    ->clickLink('Detail')
                     ->assertPathBeginsWith('/pendapatan') // pastikan membuka halaman detail
                     ->assertSee('Detail Pendapatan')
                     ->pause(4000); // sesuaikan dengan apa yang muncul di halaman detail

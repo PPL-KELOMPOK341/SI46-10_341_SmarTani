@@ -26,7 +26,7 @@
                     <div class="card-body text-center bg-success text-white rounded-top">
                         <h1><i class="fas fa-user fa-3x"></i></h1>
                         <h3>50</h3>
-                        <h5>Petani <i class="fas fa-seedling ms-1"></i></h5>
+                        <h5>Petani</h5>
                     </div>
                     <div class="card-footer text-center bg-light">
                         <span class="text-success fw-bold">View Details <i class="fas fa-arrow-circle-right"></i></span>
@@ -42,7 +42,7 @@
                     <div class="card-body text-center bg-danger text-white rounded-top">
                         <h1><i class="fas fa-exclamation-triangle fa-3x"></i></h1>
                         <h3>10</h3>
-                        <h5>Pengaduan <i class="fas fa-comment-dots ms-1"></i></h5>
+                        <h5>Pengaduan</h5>
                     </div>
                     <div class="card-footer text-center bg-light">
                         <span class="text-danger fw-bold">View Details <i class="fas fa-arrow-circle-right"></i></span>
@@ -51,24 +51,24 @@
             </a>
         </div>
 
-        <!-- Card Setting Website -->
-        <div class="col-md-4">
-            <a href="{{ route('setting.website') }}" class="text-decoration-none">
-                <div class="card shadow-lg border-0 h-100 hover-zoom">
-                    <div class="card-body text-center text-white" style="background-color: #00BFFF; border-radius: .5rem .5rem 0 0;">
-                        <h1><i class="fas fa-cogs fa-3x"></i></h1>
-                        <h3>Setting Website <i class="fas fa-sliders-h ms-1"></i></h3>
+            <!-- Card Setting Website -->
+            <div class="col-md-4">
+                <a href="{{ route('setting.website') }}" class="text-decoration-none">
+                    <div class="card shadow-lg border-0 h-100 hover-zoom">
+                        <div class="card-body text-center text-white" style="background-color: #00BFFF; border-radius: .5rem .5rem 0 0;">
+                            <h1><i class="fas fa-cogs fa-3x"></i></h1>
+                            <h3>Setting Website</h3>
+                        </div>
+                        <div class="card-footer text-center bg-light">
+                            <span class="text-primary fw-bold">View Details <i class="fas fa-arrow-circle-right"></i></span>
+                        </div>
                     </div>
-                    <div class="card-footer text-center bg-light">
-                        <span class="text-primary fw-bold">View Details <i class="fas fa-arrow-circle-right"></i></span>
-                    </div>
-                </div>
-            </a>
+                </a>
+            </div>
         </div>
-    </div>
+
 </div>
 
-<!-- Styling tambahan -->
 <style>
     .hover-zoom {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -108,7 +108,6 @@
     }
 </style>
 
-<!-- Script toggle dark mode -->
 <script>
     document.getElementById('toggle-darkmode').addEventListener('click', function() {
         document.body.classList.toggle('dark-mode');
