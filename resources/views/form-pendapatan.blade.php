@@ -72,20 +72,11 @@
                         </div>
 
                         <div class="row mt-4">
-<<<<<<< HEAD
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Simpan Data</button>
-                                <a href="{{ route('riwayat_pendapatan.index') }}" class="btn btn-secondary">Kembali</a>
-                            </div>
-                        </div>
-=======
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Simpan Data</button>
         <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
     </div>
 </div>
-
->>>>>>> f3532c910ae6332aca9f30ce8059177aa7abdf89
                     </div>
                 </form>
             @endif
