@@ -31,21 +31,6 @@
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
                 <div class="mb-3">
-                    <label for="nama" class="form-label">Nama Lengkap</label>
-                    <input type="text" class="form-control" name="nama" value="{{ auth()->user()->name }}" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Alamat Email</label>
-                    <input type="email" class="form-control" name="email" value="{{ auth()->user()->email }}" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="telepon" class="form-label">Nomor Telepon</label>
-                    <input type="text" class="form-control" name="telepon" required>
-                </div>
-
-                <div class="mb-3">
                     <label for="kategori" class="form-label">Kategori</label>
                     <select class="form-select" name="kategori" required>
                         <option value="" disabled selected>Pilih kategori</option>

@@ -72,11 +72,13 @@
                         </div>
 
                         <div class="row mt-4">
+
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Simpan Data</button>
         <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
     </div>
 </div>
+
                     </div>
                 </form>
             @endif

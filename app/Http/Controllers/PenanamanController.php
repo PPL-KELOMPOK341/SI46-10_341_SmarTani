@@ -36,31 +36,31 @@ class PenanamanController extends Controller
 
     public function index(Request $request)
     {
-        // Mulai query dari penanaman milik user yang sedang login
-        $query = \App\Models\Penanaman::where('user_id', auth()->id());
+        $query = \App\Models\Penanaman::with('user')->where('user_id', auth()->id());
 
-        // Filter Nama Tanaman
-        if ($request->filled('nama_tanaman')) {
-            $query->where('nama_tanaman', 'like', '%' . $request->nama_tanaman . '%');
-        }
-
-        // Filter Periode
-        if ($request->filled('periode')) {
-            $query->where('periode', $request->periode);
-        }
-
-        // Search Umum
+        // Search
         if ($request->filled('search')) {
-            $query->where(function($q) use ($request) {
+            $query->where(function ($q) use ($request) {
                 $q->where('nama_tanaman', 'like', '%' . $request->search . '%')
-                  ->orWhere('lokasi_lahan', 'like', '%' . $request->search . '%');
+                ->orWhere('periode', 'like', '%' . $request->search . '%');
             });
         }
 
-        $penanaman = $query->latest()->get();
+        // Sort
+        $sort = $request->get('sort');
+        $direction = $request->get('direction', 'asc');
+
+        if (in_array($sort, ['periode', 'nama_tanaman', 'tanggal_tanam'])) {
+            $query->orderBy($sort, $direction);
+        } else {
+            $query->orderBy('created_at', 'desc'); // default urutan
+        }
+
+        $penanaman = $query->paginate(10)->withQueryString();
 
         return view('penanaman.riwayat', compact('penanaman'));
     }
+
 
     public function hasilForm($id)
     {

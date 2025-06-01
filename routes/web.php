@@ -111,12 +111,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pendapatan/{id}/edit', [PendapatanController::class, 'edit'])->name('pendapatan.edit');
     Route::put('/pendapatan/{id}', [PendapatanController::class, 'update'])->name('pendapatan.update');
     Route::delete('/pendapatan/{id}', [PendapatanController::class, 'destroy'])->name('pendapatan.destroy');
+    
+    // Pengaduan 
+    Route::get('/pengaduan', [PengaduanController::class, 'create'])->name('pengaduan.create');
+    Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
+
 
     // Halaman tambahan
     Route::get('/form-pencatatan', function () {
         return view('form-pencatatan');
     })->name('form-pencatatan');
 
+    Route::get('/grafik-pemasukan-pengeluaran', [\App\Http\Controllers\GrafikController::class, 'pemasukanPengeluaran'])->name('grafik.index');
+
+
+    
     // 🟦 Route Khusus Role USER
     Route::middleware([RoleMiddleware::class . ':user'])->group(function () {
         Route::get('/pengaduan', [PengaduanController::class, 'create'])->name('pengaduan.create');
