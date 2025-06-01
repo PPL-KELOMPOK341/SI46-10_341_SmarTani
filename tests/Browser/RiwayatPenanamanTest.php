@@ -19,7 +19,7 @@ class RiwayatPenanamanTest extends DuskTestCase
 
     #[PHPUnitAttributes\Test]
     #[PHPUnitAttributes\Group('filter-tanaman')]
-    public function testFilterNamaTanamanDiRiwayat()
+    public function testFilterRiwayatTanaman()
     {
         $this->browse(function (Browser $browser) {
             $user = User::factory()->create();
@@ -27,12 +27,18 @@ class RiwayatPenanamanTest extends DuskTestCase
                 'user_id' => $user->id
             ]);
 
-
             $browser->loginAs($user)
                     ->visit('/riwayat-penanaman')
-                    ->assertSee('Tabel Riwayat Penanaman') // Pastikan halaman terbuka
-                    ->select('nama_tanaman') // <-- Pilih dari select nama_tanaman
-                    ->press('🔍') // Tekan tombol 🔍
+                    ->assertSee('Riwayat Penanaman') // Pastikan halaman terbuka
+                    ->clickLink('Periode')
+                    ->pause(1000); // Tunggu hasil load
+
+            $browser->assertSee('Riwayat Penanaman') // Pastikan halaman terbuka
+                    ->clickLink('Nama Tanaman')
+                    ->pause(1000); // Tunggu hasil load
+
+            $browser->assertSee('Riwayat Penanaman') // Pastikan halaman terbuka
+                    ->clickLink('Tanggal Penanaman')
                     ->pause(1000); // Tunggu hasil load
         });
     }
@@ -49,7 +55,7 @@ class RiwayatPenanamanTest extends DuskTestCase
 
             $browser->loginAs($user)
                     ->visit('/riwayat-penanaman')
-                    ->assertSee('Tabel Riwayat Penanaman'); // Pastikan halaman terbuka
+                    ->assertSee('Riwayat Penanaman'); // Pastikan halaman terbuka
         });
     }
 
@@ -65,8 +71,6 @@ class RiwayatPenanamanTest extends DuskTestCase
 
             $browser->loginAs($user)
                     ->visit('/riwayat-penanaman')
-                    ->assertPresent('select[name="nama_tanaman"]')
-                    ->assertPresent('select[name="periode"]')
                     ->assertPresent('input[name="search"]')
                     ->assertPresent('button[type="submit"]');
         });
@@ -89,9 +93,9 @@ class RiwayatPenanamanTest extends DuskTestCase
 
             $browser->loginAs($user)
                     ->visit('/riwayat-penanaman')
-                    ->assertSee('Tabel Riwayat Penanaman')
+                    ->assertSee('Riwayat Penanaman')
                     ->type('search', 'TanamanTidakAda123') // kata kunci tidak sesuai data mana pun
-                    ->press('🔍')
+                    ->press('Cari')
                     ->pause(1000)
                     ->assertSee('Tidak ada data'); // pastikan ini ditampilkan di view saat kosong
         });

@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendapatanController;
 use App\Http\Controllers\RiwayatPengeluaranController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RiwayatPendapatanController;
 use App\Http\Controllers\GrafikController;
 use App\Http\Controllers\PengeluaranController;
@@ -76,8 +77,8 @@ Route::middleware('guest')->group(function () {
 // ============================
 Route::middleware(['auth'])->group(function () {
     // Dashboard Berita
-    Route::get('/dashboard', [BeritaController::class, 'index'])->name('dashboard');
-    Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    //Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -140,6 +141,29 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/pengaduan/{id}', [PengaduanController::class, 'update'])->name('pengaduan.update');
         Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan.destroy');
     });
+
+    // Redirect ke index berita
+    Route::get('/berita', function () {
+        return redirect()->route('berita.index');
+    });
+
+    // 🟥 Route Khusus Role ADMIN
+    Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+        // CRUD Berita
+        Route::resource('berita', BeritaController::class)->parameters([
+            'berita' => 'berita'
+        ]);
+
+        // Detail berita versi admin
+        Route::get('/berita/{id}/detail-admin', [BeritaController::class, 'showDetailAdmin'])->name('berita.detail');
+    });
+
+    // 🟩 Route Khusus Role PETANI
+    Route::middleware([RoleMiddleware::class . ':user'])->group(function () {
+        // Detail berita versi petani
+        Route::get('/berita/{id}/detail-petani', [BeritaController::class, 'showDetailPetani'])->name('berita.show-petani');
+    });
+    
 });
 
 require __DIR__.'/auth.php';
