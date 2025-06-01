@@ -29,7 +29,9 @@
                 <td class="py-2 px-4 border-b">{{ $user->phone }}</td>
                 <td class="py-2 px-4 border-b">
                     <a href="{{ route('users.edit', $user) }}" class="text-blue-600 hover:text-blue-900 mr-2">Edit</a>
-                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
+                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline"
+                          dusk="delete-user-{{ $user->id }}"
+                          onsubmit="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="text-red-600 hover:text-red-900">Hapus</button>

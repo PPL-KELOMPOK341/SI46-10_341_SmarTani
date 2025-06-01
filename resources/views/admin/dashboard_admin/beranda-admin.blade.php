@@ -51,21 +51,22 @@
             </a>
         </div>
 
-        <!-- Card Setting Website -->
-        <div class="col-md-4">
-            <a href="{{ route('setting.website') }}" class="text-decoration-none">
-                <div class="card shadow-lg border-0 h-100 hover-zoom">
-                    <div class="card-body text-center text-white" style="background-color: #00BFFF; border-radius: .5rem .5rem 0 0;">
-                        <h1><i class="fas fa-cogs fa-3x"></i></h1>
-                        <h3>Setting Website</h3>
+            <!-- Card Setting Website -->
+            <div class="col-md-4">
+                <a href="{{ route('setting.website') }}" class="text-decoration-none">
+                    <div class="card shadow-lg border-0 h-100 hover-zoom">
+                        <div class="card-body text-center text-white" style="background-color: #00BFFF; border-radius: .5rem .5rem 0 0;">
+                            <h1><i class="fas fa-cogs fa-3x"></i></h1>
+                            <h3>Setting Website</h3>
+                        </div>
+                        <div class="card-footer text-center bg-light">
+                            <span class="text-primary fw-bold">View Details <i class="fas fa-arrow-circle-right"></i></span>
+                        </div>
                     </div>
-                    <div class="card-footer text-center bg-light">
-                        <span class="text-primary fw-bold">View Details <i class="fas fa-arrow-circle-right"></i></span>
-                    </div>
-                </div>
-            </a>
+                </a>
+            </div>
         </div>
-    </div>
+
 </div>
 
 <style>
