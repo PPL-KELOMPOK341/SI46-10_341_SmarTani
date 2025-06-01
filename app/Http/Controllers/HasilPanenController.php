@@ -66,7 +66,8 @@ public function index(Request $request)
 
     public function create()
     {
-        return view('hasil_panen.search');
+        $penanamanList = Penanaman::where('user_id', auth()->id())->pluck('nama_tanaman', 'id');
+        return view('hasil_panen.search', compact('penanamanList'));
     }
 
     public function search(Request $request)

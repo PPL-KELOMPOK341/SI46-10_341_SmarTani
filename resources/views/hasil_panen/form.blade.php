@@ -68,7 +68,7 @@
 
                 <div class="mt-4">
                     <button type="submit" class="btn btn-primary">{{ isset($hasilPanen) ? 'Update' : 'Simpan' }}</button>
-                    <a href="{{ route('hasil-panen.index') }}" class="btn-kembali btn btn-danger">Kembali</a>
+                    <a href="{{ url()->previous() }}" class="btn-kembali btn btn-danger">Kembali</a>
                 </div>
             </form>
         </div>
