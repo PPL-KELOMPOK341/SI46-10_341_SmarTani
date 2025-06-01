@@ -16,7 +16,7 @@ class DashboardController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('judul', 'like', '%' . $search . '%')
-                ->orWhere('isi', 'like', '%' . $search . '%');
+                ->orWhere('konten', 'like', '%' . $search . '%');
             });
         }
 
