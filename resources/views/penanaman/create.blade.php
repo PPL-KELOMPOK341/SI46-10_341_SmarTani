@@ -96,7 +96,7 @@
         </div>
         <p class="text-danger">Tanda * wajib diisi</p>
         <button type="submit" class="btn btn-success">Simpan</button>
-        <a href="#" class="btn btn-danger">Kembali</a>
+        <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a>
     </form>
 </div>
 @endsection
