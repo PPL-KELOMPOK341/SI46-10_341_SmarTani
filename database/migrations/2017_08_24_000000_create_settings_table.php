@@ -6,37 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSettingsTable extends Migration
 {
-    /**
-     * Set up the options.
-     */
-    public function __construct()
-    {
-        $this->table = config('setting.database.table');
-        $this->key = config('setting.database.key');
-        $this->value = config('setting.database.value');
-    }
-
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create($this->table, function (Blueprint $table) {
-            $table->increments('id');
-            $table->string($this->key)->index();
-            $table->text($this->value);
+        Schema::create('settings', function (Blueprint $table) {
+            $table->id();
+            $table->string('site_title');
+            $table->text('site_description')->nullable();
+            $table->string('site_version')->nullable();
+            $table->string('site_logo')->nullable();
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::drop($this->table);
+        Schema::dropIfExists('settings');
     }
 }

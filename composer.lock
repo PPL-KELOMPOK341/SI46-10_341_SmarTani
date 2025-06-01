@@ -4,10 +4,10 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9eeb0a5b2ecf5bd18ab2fb2d985da0ac",
+    "content-hash": "aa0fca4319a23f7a7adf73f1717ca4c5",
     "packages": [
         {
-            "name": "akaunting/setting",
+            "name": "akaunting/laravel-setting",
             "version": "1.2.9",
             "source": {
                 "type": "git",
@@ -32,12 +32,12 @@
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": [
-                        "Akaunting\\Setting\\Provider"
-                    ],
                     "aliases": {
                         "Setting": "Akaunting\\Setting\\Facade"
-                    }
+                    },
+                    "providers": [
+                        "Akaunting\\Setting\\Provider"
+                    ]
                 }
             },
             "autoload": {
@@ -71,7 +71,6 @@
                 "issues": "https://github.com/akaunting/laravel-setting/issues",
                 "source": "https://github.com/akaunting/laravel-setting/tree/1.2.9"
             },
-            "abandoned": "akaunting/laravel-setting",
             "time": "2023-11-02T08:32:45+00:00"
         },
         {
