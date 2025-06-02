@@ -16,7 +16,7 @@ class LoginAdminTest extends DuskTestCase
         // Membuat user admin dummy
         $user = User::factory()->create([
             'email' => 'admin@example.com',
-            'password' => bcrypt('password123'),
+            'password' => bcrypt('password'),
         ]);
 
         $this->browse(function (Browser $browser) use ($user) {
