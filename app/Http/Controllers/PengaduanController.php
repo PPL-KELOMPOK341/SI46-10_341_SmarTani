@@ -44,6 +44,7 @@ class PengaduanController extends Controller
     /**
      * User: Simpan pengaduan baru.
      */
+    
     public function store(Request $request)
     {
         $request->validate([
@@ -66,9 +67,10 @@ class PengaduanController extends Controller
      */
     public function show($id)
     {
-        $pengaduan = Pengaduan::findOrFail($id);
-        return view('pengaduan.detail', compact('pengaduan'));
+        $pengaduan = Pengaduan::with('user')->findOrFail($id); // <- eager load
+        return view('admin.pengaduan.detail', compact('pengaduan'));
     }
+
 
     /**
      * Admin: Tampilkan form edit pengaduan.
@@ -104,6 +106,6 @@ class PengaduanController extends Controller
         $pengaduan = Pengaduan::findOrFail($id);
         $pengaduan->delete();
 
-        return redirect()->route('pengaduan.index')->with('success', 'Pengaduan berhasil dihapus.');
+        return redirect()->route('pengaduan.riwayat')->with('success', 'Pengaduan berhasil dihapus.');
     }
 }

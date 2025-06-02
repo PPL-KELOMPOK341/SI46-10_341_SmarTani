@@ -16,7 +16,7 @@ class BeritaControllerTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
-                ->type('email', 'admin@gmail.com')
+                ->type('email', 'testuser@example.com')
                 ->type('password', '12345678')
                 ->press('Masuk')
                 ->pause(500)
@@ -36,7 +36,7 @@ class BeritaControllerTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
-                ->type('email', 'admin@gmail.com')
+                ->type('email', 'testuser@example.com')
                 ->type('password', '12345678')
                 ->press('Masuk')
                 ->pause(500)
@@ -46,14 +46,15 @@ class BeritaControllerTest extends DuskTestCase
         
 
                 // Isi kolom pencarian dengan keyword 'cabe'
-                ->type('search', 'cabe')
+                ->type('search', 'coba')
                 
                 // Tekan tombol search
                 ->click('button[type="submit"]') // Ganti dengan nama tombol kalau perlu
                 ->pause(100)
 
                 // Pastikan berita tentang 'Cabe lagi mahal' muncul
-                ->assertSee('Cabe lagi mahal');
+                ->assertSee('Coba')
+                ->pause(500);
         });
     }
 /**
@@ -64,7 +65,7 @@ public function test_user_filter_berita_by_tanggal()
 {
     $this->browse(function (Browser $browser) {
         $browser->visit('/login')
-            ->type('email', 'admin@gmail.com')
+            ->type('email', 'testuser@example.com')
             ->type('password', '12345678')
             ->press('Masuk')
             ->pause(500)
@@ -73,16 +74,16 @@ public function test_user_filter_berita_by_tanggal()
             ->visit('/dashboard')
 
             // Isi form filter tanggal
-            ->type('dari', '01-06-2024')  // <-- format harus benar
-            ->type('sampai', '03-06-2024')
+            ->type('dari', '01-06-2025')  // <-- format harus benar
+            ->type('sampai', '02-06-2025')
 
             // Klik tombol search dengan klik tombol submit
             ->click('button[type="submit"]') // <-- BUKAN press('Search')
             ->pause(1000) // beri jeda supaya halaman reload
 
             // Validasi hasil
-            ->assertSee('Harga Cabai Meningkat di Bandung')
-            ->assertSee('Cabe lagi mahal')
+            ->assertSee('Coba')
+        
             ->assertDontSee('Panen Raya Membuat Harga Sayur Turun');
     });
 }

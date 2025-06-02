@@ -140,7 +140,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengaduan/{id}/edit', [PengaduanController::class, 'edit'])->name('pengaduan.edit');
         Route::put('/pengaduan/{id}', [PengaduanController::class, 'update'])->name('pengaduan.update');
         Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan.destroy');
-    });
+    }); 
 
     // Redirect ke index berita
     Route::get('/berita', function () {

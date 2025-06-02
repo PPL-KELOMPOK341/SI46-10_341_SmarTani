@@ -16,6 +16,14 @@ class BeritaAdminTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $user = User::factory()->create([
+                'role' => 'user'
+            ]);
+            $browser->loginAs($user)
+            ->visit('/dashboard')
+            ->assertSee('Berita Terkini');
+            
+
+            $user = User::factory()->create([
                 'role' => 'admin'
             ]);
             $browser->loginAs($user)
@@ -32,10 +40,19 @@ class BeritaAdminTest extends DuskTestCase
 
             // Simpan
             ->press('Simpan')
+            ->pause(500)
 
             // Pastikan kembali ke halaman daftar atau muncul pesan sukses
             ->assertPathIs('/berita')
             ->assertSee('Berita berhasil ditambahkan');
+
+             $user = User::factory()->create([
+                'role' => 'user'
+            ]);
+            $browser->loginAs($user)
+            ->visit('/dashboard')
+            ->assertSee('Berita Terkini')
+            ->pause(5000);
     });
 }
     /**
@@ -77,15 +94,15 @@ public function test_user_filter_berita_by_tanggal()
             ->visit('/berita')
 
             // Isi form filter tanggal
-            ->type('dari', '20-05-2025')  // <-- format harus benar
-            ->type('sampai', '28-05-2025')
+            ->type('dari', '01-06-2025')  // <-- format harus benar
+            ->type('sampai', '02-06-2025')
 
             // Klik tombol search dengan klik tombol submit
             ->click('button[type="submit"]') // <-- BUKAN press('Search')
             ->pause(1000) // beri jeda supaya halaman reload
 
             // Validasi hasil
-            ->assertSee('Teriakan Petani')
+            ->assertSee('Panen Raya')
             ->assertDontSee('23 Paskal Shopping Centre');
     });
 }

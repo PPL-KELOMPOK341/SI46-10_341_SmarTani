@@ -31,7 +31,7 @@
 
         <!-- Card Pengaduan -->
         <div class="col-md-4">
-            <a href="{{ url('/pengaduan') }}" class="text-decoration-none">
+            <a href="{{ url('/admin/riwayat-pengaduan') }}" class="text-decoration-none">
                 <div class="card shadow-lg border-0 h-100 hover-zoom">
                     <div class="card-body text-center bg-danger text-white rounded-top">
                         <h1><i class="fas fa-exclamation-triangle fa-3x"></i></h1>

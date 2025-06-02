@@ -41,6 +41,13 @@ public function test_user_lihat_berita()
 public function test_user_update_berita()
 {
     $this->browse(function (Browser $browser) {
+         $user = User::factory()->create([
+                'role' => 'user'
+            ]);
+            $browser->loginAs($user)
+            ->visit('/dashboard')
+            ->assertSee('Berita Terkini');
+        
         $user = User::factory()->create([
             'role' => 'admin'
         ]);
@@ -59,7 +66,16 @@ public function test_user_update_berita()
             ->value('input[name="tanggal"]', '2025-05-29')
             ->type('konten', 'Doraemon')
             ->press('Update')
+            ->pause(500)
             ->assertPathIs('/berita');
+
+         $user = User::factory()->create([
+                'role' => 'user'
+            ]);
+            $browser->loginAs($user)
+            ->visit('/dashboard')
+            ->assertSee('Berita Terkini')
+            ->pause(500);
     });
 }
 
@@ -70,7 +86,16 @@ public function test_user_update_berita()
 public function test_user_hapus_berita()
 {
     $this->browse(function (Browser $browser) {
-        $user = User::factory()->create(); // Sementara karena berita masih menggunakan login petani jadi direct ke tampilan petani
+        $user = User::factory()->create([
+                'role' => 'user'
+            ]);
+            $browser->loginAs($user)
+            ->visit('/dashboard')
+            ->assertSee('Berita Terkini');
+
+        $user = User::factory()->create([
+            'role' => 'admin'
+        ]);
         $berita = Berita::factory()->create();
 
         $browser->loginAs($user)
@@ -80,8 +105,17 @@ public function test_user_hapus_berita()
             ->assertPathIs('/berita/'.$berita->id.'/detail-admin')
             ->assertSee('Detail Berita')
             ->press('Hapus')
+            ->pause(500)
             ->acceptDialog() //Klik OK
             ->assertPathIs('/berita');
+
+        $user = User::factory()->create([
+                'role' => 'user'
+            ]);
+            $browser->loginAs($user)
+            ->visit('/dashboard')
+            ->assertSee('Berita Terkini')
+            ->pause(500);
     });
 }
 
@@ -94,7 +128,9 @@ public function test_user_hapus_berita()
 public function test_user_update_exception_berita()
 {
     $this->browse(function (Browser $browser) {
-        $user = User::factory()->create(); // Sementara karena berita masih menggunakan login petani jadi direct ke tampilan petani
+        $user = User::factory()->create([
+            'role' => 'admin'
+        ]);
         $berita = Berita::factory()->create();
 
         $browser->loginAs($user)
@@ -119,7 +155,9 @@ public function test_user_update_exception_berita()
 public function test_user_hapus_exception_berita()
 {
     $this->browse(function (Browser $browser) {
-        $user = User::factory()->create(); // Sementara karena berita masih menggunakan login petani jadi direct ke tampilan petani
+        $user = User::factory()->create([
+            'role' => 'admin'
+        ]);
         $berita = Berita::factory()->create();
 
         $browser->loginAs($user)
