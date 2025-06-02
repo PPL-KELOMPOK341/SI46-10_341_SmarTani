@@ -11,7 +11,7 @@
         <i class="bi bi-newspaper me-2"></i> Data Berita
     </a>
 
-    <a href="{{ url('/pengaduan') }}" class="{{ request()->is('pengaduan*') ? 'bg-light fw-bold' : '' }}">
+    <a href="{{ url('/riwayat-pengaduan') }}" class="{{ request()->is('pengaduan*') ? 'bg-light fw-bold' : '' }}">
         <i class="bi bi-exclamation-triangle-fill me-2"></i> Pengaduan
     </a>
 

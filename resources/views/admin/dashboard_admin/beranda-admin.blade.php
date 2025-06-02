@@ -2,12 +2,6 @@
 
 @section('content')
 <div class="container" id="main-content">
-    <!-- Tombol switch dark mode -->
-    <div class="text-end mb-3">
-        <button id="toggle-darkmode" class="btn btn-outline-dark">
-            <i class="fas fa-moon"></i> Dark Mode
-        </button>
-    </div>
 
     <!-- Header sambutan -->
     <div class="mb-4 text-center">
