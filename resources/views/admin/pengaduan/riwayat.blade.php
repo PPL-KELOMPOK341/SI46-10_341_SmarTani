@@ -44,18 +44,13 @@
                             <th>Nama User</th>
                             <th>Kategori</th>
                             <th>Tanggal</th>
-                            <th>Status</th>
                             <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($pengaduans as $key => $item)
                         <tr>
-<<<<<<< HEAD
-                            <td>{{ $item->nama }}</td>
-=======
                             <td>{{ $item->user->name }}</td>
->>>>>>> Dzakyyuddin
                             <td>{{ $item->kategori }}</td>
                             <td>{{ $item->created_at->format('d-m-Y') }}</td>
                             <td>
