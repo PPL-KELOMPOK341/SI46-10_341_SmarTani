@@ -37,7 +37,8 @@ abstract class DuskTestCase extends BaseTestCase
         if (! $this->hasHeadlessDisabled()) {
             $options->addArguments([
                 '--disable-gpu',
-                // '--headless',  // Nonaktifkan headless agar GUI Chrome muncul
+                //'--headless=new', // atau '--headless' jika dibutuhkan
+                //'--headless',
             ]);
         }
 

@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            background: url('/images/vbadminlog.jpg') no-repeat center center fixed;
+            background: url('/images/image-admin.jpg') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
