@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
             PendapatanSeeder::class,
             HasilPanenSeeder::class,
             PengeluaranSeeder::class,
-            BeritaSeeder::class,
-            AdminSeeder::class
+            // BeritaSeeder::class,
+            AdminSeeder::class,
         ]);
     }
 }

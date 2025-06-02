@@ -14,8 +14,8 @@ class AdminUserCrudTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/login')
-                    ->type('email', 'admin@smartani.id')
-                    ->type('password', 'admin12345')
+                    ->type('email', 'admin@example.com')
+                    ->type('password', 'password')
                     ->press('Login')
                     ->assertPathIs('/admin/beranda')
                     ->clickLink('Data Petani')
@@ -37,8 +37,8 @@ class AdminUserCrudTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/login')
-                    ->type('email', 'admin@smartani.id')
-                    ->type('password', 'admin12345')
+                    ->type('email', 'admin@example.com')
+                    ->type('password', 'password')
                     ->press('Login')
                     ->pause(2000)
                     ->assertPathIs('/admin/beranda')
@@ -48,7 +48,7 @@ class AdminUserCrudTest extends DuskTestCase
                     ->assertPathIs('/admin/users/create')
                     ->pause(2000)
                     ->type('name', 'Test User')
-                    ->type('email', 'testuser@example.com')
+                    ->type('email', 'testuser@contohhh.com')
                     ->type('phone', '1234567890')
                     ->type('password', 'password123')
                     ->type('password_confirmation', 'password123')
@@ -65,12 +65,12 @@ class AdminUserCrudTest extends DuskTestCase
      */
     public function testEditUser()
     {
-        $userEmail = 'admin@smartani.id';
+        $userEmail = 'testuser@example.com';
 
         $this->browse(function (Browser $browser) use ($userEmail) {
             $browser->visit('/admin/login')
-                    ->type('email', 'admin@smartani.id')
-                    ->type('password', 'admin12345')
+                  ->type('email', 'admin@example.com')
+                    ->type('password', 'password')
                     ->press('Login')
                     ->pause(2000)
                     ->assertPathIs('/admin/beranda')
@@ -81,7 +81,7 @@ class AdminUserCrudTest extends DuskTestCase
                     ->pause(2000)
                     ->assertSee('Edit User')
                     ->type('name', 'New Name')
-                    ->type('email', 'admin@smartani.id')
+                    ->type('email', 'testuser@example.com')
                     ->type('phone', '1112223333')
                     ->press('Simpan')
                     ->pause(2000)
@@ -99,13 +99,13 @@ class AdminUserCrudTest extends DuskTestCase
      */
    public function testDeleteUser()
 {
-    $userEmail = 'nrenner@example.net';
-    $userId = 49; // ganti sesuai ID sebenarnya
+    $userEmail = 'petani@example.com';
+    $userId = 4; // ganti sesuai ID sebenarnya
 
     $this->browse(function (Browser $browser) use ($userEmail, $userId) {
         $browser->visit('/admin/login')
-                ->type('email', 'admin@smartani.id')
-                ->type('password', 'admin12345')
+               ->type('email', 'admin@example.com')
+                    ->type('password', 'password')
                 ->press('Login')
                 ->pause(1000)
                 ->assertPathIs('/admin/beranda')
@@ -129,8 +129,8 @@ public function testValidationErrors()
 {
     $this->browse(function (Browser $browser) {
         $browser->visit('/admin/login')
-                ->type('email', 'admin@smartani.id')
-                ->type('password', 'admin12345')
+                ->type('email', 'admin@example.com')
+                 ->type('password', 'password')
                 ->press('Login')
                 ->pause(2000)
                 ->assertPathIs('/admin/beranda')
