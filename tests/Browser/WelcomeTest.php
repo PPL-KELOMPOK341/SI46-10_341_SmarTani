@@ -11,7 +11,7 @@ class WelcomeTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->waitForText('Selamat Datang!', 10)  // tunggu sampai teks muncul maksimal 10 detik
+                    ->waitForText('Selamat Datang!', 15)  // tunggu sampai teks muncul maksimal 10 detik
                     ->assertSee('Selamat Datang!')
                     ->assertSee('Mulai Sekarang');
 

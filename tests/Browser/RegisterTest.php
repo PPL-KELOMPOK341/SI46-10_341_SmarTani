@@ -25,7 +25,7 @@ class RegisterTest extends DuskTestCase
                     ->type('@password', 'password123')
                     ->type('@password_confirmation', 'password123')
                     ->press('@submit-register')  // Gunakan dusk selector
-                    ->assertPathIs('/login');
+                    ->assertPathIs('/dashboard');
         });
 
         $this->assertDatabaseHas('users', [

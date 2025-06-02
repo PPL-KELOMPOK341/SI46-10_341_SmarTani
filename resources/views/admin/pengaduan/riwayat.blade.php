@@ -44,6 +44,7 @@
                             <th>Nama User</th>
                             <th>Kategori</th>
                             <th>Tanggal</th>
+                            <th>Status</th>
                             <th class="text-center">Aksi</th>
                         </tr>
                     </thead>

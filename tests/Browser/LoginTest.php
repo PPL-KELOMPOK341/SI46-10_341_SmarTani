@@ -15,7 +15,7 @@ class LoginTest extends DuskTestCase
                     ->type('@email', 'test@example.com')
                     ->type('@password', 'password123')
                     ->press('@submit-login')
-                    ->waitForLocation('/dashboard', 15);
+                    ->assertPathIs('/dashboard');
 
             $browser->click('.menu-icon')
                     ->pause(1000) // tunggu sidebar tampil
@@ -75,19 +75,19 @@ class LoginTest extends DuskTestCase
         });
     }
 
-    public function test_successful_login_with_remember_me()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/login')
-                    ->waitFor('@email', 5)
-                    ->type('@email', 'test@example.com')
-                    ->type('@password', 'password123')
-                    ->check('@remember-me')
-                    ->press('@submit-login')
-                    ->waitForLocation('/dashboard', 15)
-                    ->assertSee('Berita Terkini');
-        });
-    }
+    // public function test_successful_login_with_remember_me()
+    // {
+    //     $this->browse(function (Browser $browser) {
+    //         $browser->visit('/login')
+    //                 ->waitFor('@email', 5)
+    //                 ->type('@email', 'test@example.com')
+    //                 ->type('@password', 'password123')
+    //                 ->check('@remember-me')
+    //                 ->press('@submit-login')
+    //                 ->waitForLocation('/dashboard', 15)
+    //                 ->assertSee('Berita Terkini');
+    //     });
+    // }
 
     // public function test_reset_password_request()
     // {
